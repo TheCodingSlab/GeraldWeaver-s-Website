@@ -1,22 +1,31 @@
-body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; }
-header { background: #003366; color: white; padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; background: #FFFFFF; } /* White background */
+header { background: #0A254E; color: #FFFFFF; padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; } /* Liberty Blue */
 .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
 nav ul { list-style: none; display: flex; gap: 20px; }
-nav a { color: white; text-decoration: none; }
-.hero { background: #f4f4f4; padding: 150px 20px 100px; text-align: center; }
-.profile-img { width: 150px; height: 150px; border-radius: 50%; margin-bottom: 20px; }
+nav a { color: #FFFFFF; text-decoration: none; } /* White text */
+.hero { background: #f4f4f4; padding: 150px 20px 100px; text-align: center; } /* Light neutral for hero */
+.profile-img { width: 150px; height: 150px; border-radius: 50%; margin-bottom: 20px; border: 2px solid #B72025; } /* Red border accent */
 .section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
-h2 { text-align: center; color: #003366; }
+h2 { text-align: center; color: #0A254E; } /* Liberty Blue */
 .content-grid, .project-grid, .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
 .timeline { display: flex; flex-direction: column; gap: 20px; }
-.timeline-item { background: #f9f9f9; padding: 20px; border-left: 4px solid #003366; }
-.project-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.timeline-item { background: #f9f9f9; padding: 20px; border-left: 4px solid #B72025; } /* Red border */
+.project-card { background: #FFFFFF; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border: 1px solid #0A254E; } /* Blue border */
 .project-img { width: 100%; height: auto; margin: 10px 0; }
 .skill-category { background: #e6f3ff; padding: 15px; border-radius: 5px; text-align: center; }
 form { display: flex; flex-direction: column; gap: 10px; max-width: 500px; margin: 20px auto; }
-input, textarea { padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
-.btn { background: #003366; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block; margin: 5px; }
+input, textarea { padding: 10px; border: 1px solid #0A254E; border-radius: 4px; } /* Blue border */
+.btn { background: #B72025; color: #FFFFFF; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block; margin: 5px; } /* Liberty Red buttons */
+.btn:hover { background: #0A254E; } /* Hover to Blue */
 .social-links { text-align: center; margin-top: 20px; }
-.social-links a { font-size: 2em; margin: 0 10px; color: #003366; }
-footer { background: #003366; color: white; text-align: center; padding: 20px; }
+.social-links a { font-size: 2em; margin: 0 10px; color: #0A254E; } /* Blue icons */
+footer { background: #0A254E; color: #FFFFFF; text-align: center; padding: 20px; } /* Blue footer */
+
+/* Fade-in animation for About Me */
+#about { opacity: 0; animation: fadeIn 1s ease-in forwards; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 768px) { .nav-container { flex-direction: column; } nav ul { flex-direction: column; gap: 10px; } }
