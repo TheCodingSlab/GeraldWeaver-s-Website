@@ -1,8 +1,10 @@
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
+// Existing smooth scroll code...
+
+// Fade-in on scroll for #about
+window.addEventListener('scroll', () => {
+    const about = document.getElementById('about');
+    const rect = about.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+        about.style.opacity = 1;
+    }
 });
