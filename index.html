@@ -227,7 +227,7 @@
             color: var(--accent-primary); font-size: 0.8rem;
         }
 
-        /* --- COURSE GRID (Expanded) --- */
+        /* --- COURSE GRID --- */
         .course-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
             font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--text-dim);
@@ -243,18 +243,22 @@
             background: rgba(0, 240, 255, 0.1);
         }
 
-        /* --- PROJECTS SECTION STYLES --- */
+        /* --- PROJECTS SECTION IMAGE STYLES --- */
         .tech-stack { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
         .tech-tag { 
             font-size: 0.7rem; background: rgba(0, 240, 255, 0.1); 
             color: var(--accent-primary); padding: 4px 8px; border: 1px solid rgba(0, 240, 255, 0.2); 
             font-family: 'JetBrains Mono';
         }
-        .project-img-placeholder {
-            width: 100%; height: 200px; background: #000; border: 1px dashed var(--text-dim);
-            display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
-            color: var(--text-dim); font-family: 'JetBrains Mono'; font-size: 0.8rem;
+        .project-img-container {
+            width: 100%; height: 200px; margin-bottom: 20px; overflow: hidden;
+            border: 1px solid var(--border-tech); position: relative;
         }
+        .project-img-container img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s ease; opacity: 0.8;
+        }
+        .card:hover .project-img-container img { transform: scale(1.05); opacity: 1; }
 
         /* --- SKILLS --- */
         .skill-container { margin-bottom: 15px; }
@@ -519,8 +523,8 @@
                 
                 <div class="card">
                     <div class="status-led"></div>
-                    <div class="project-img-placeholder">
-                        <i class="fas fa-cubes fa-2x"></i>
+                    <div class="project-img-container">
+                        <img src="Screenshot 2026-01-26 184057.png" alt="Warehouse Simulation">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">AI Warehouse Optimization</h3>
                     <div class="tech-stack">
@@ -529,18 +533,18 @@
                         <span class="tech-tag">ALGORITHMS</span>
                     </div>
                     <p style="font-size:0.9rem; color:var(--text-dim); margin-bottom:15px;">
-                        Built a Python simulation (August 2025) to optimize warehouse routes in a 10x10 factory layout[cite: 79, 96].
+                        Built a Python simulation to optimize warehouse routes in a 10x10 factory layout.
                     </p>
                     <ul>
-                        <li>Achieved <strong>26.47% reduction</strong> in travel distance using greedy algorithms[cite: 96].</li>
-                        <li>Modeled realistic constraints including cross-shaped aisles and randomized inventory[cite: 97].</li>
+                        <li>Achieved <strong>26.47% reduction</strong> in travel distance using greedy algorithms.</li>
+                        <li>Modeled realistic constraints including cross-shaped aisles and randomized inventory.</li>
                     </ul>
                 </div>
 
                 <div class="card">
                     <div class="status-led"></div>
-                    <div class="project-img-placeholder">
-                        <i class="fas fa-hammer fa-2x"></i>
+                    <div class="project-img-container">
+                        <img src="Screenshot 2026-01-26 184214.png" alt="Brick Press CAD">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">EMRC Echo Brick Press</h3>
                     <div class="tech-stack">
@@ -549,18 +553,18 @@
                         <span class="tech-tag">PROTOTYPING</span>
                     </div>
                     <p style="font-size:0.9rem; color:var(--text-dim); margin-bottom:15px;">
-                        Engineered a metal brick press for West Africa to enable hand-made compressed earth blocks[cite: 113].
+                        Engineered a metal brick press for West Africa to enable hand-made compressed earth blocks.
                     </p>
                     <ul>
-                        <li>Modeled compression forces and moment of inertia in SolidWorks[cite: 116].</li>
-                        <li>Reduced drying time and optimized soil-straw composition for "rock-like" integrity[cite: 114, 119].</li>
+                        <li>Modeled compression forces and moment of inertia in SolidWorks.</li>
+                        <li>Reduced drying time and optimized soil-straw composition for "rock-like" integrity.</li>
                     </ul>
                 </div>
 
                 <div class="card">
                     <div class="status-led"></div>
-                    <div class="project-img-placeholder">
-                        <i class="fas fa-code fa-2x"></i>
+                    <div class="project-img-container">
+                        <img src="Screenshot 2026-01-26 184355.png" alt="Rocketry Website UI">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">Liberty Rocketry Portal</h3>
                     <div class="tech-stack">
@@ -569,18 +573,18 @@
                         <span class="tech-tag">RESPONSIVE</span>
                     </div>
                     <p style="font-size:0.9rem; color:var(--text-dim); margin-bottom:15px;">
-                        Designed and deployed the official team website to support recruitment and sponsorship outreach[cite: 160].
+                        Designed and deployed the official team website to support recruitment and sponsorship outreach.
                     </p>
                     <ul>
-                        <li>Implemented mobile-first responsive grids and custom dark-mode aesthetics[cite: 153, 157].</li>
-                        <li>Created full-viewport hero sections and smooth fade-in animations[cite: 157].</li>
+                        <li>Implemented mobile-first responsive grids and custom dark-mode aesthetics.</li>
+                        <li>Created full-viewport hero sections and smooth fade-in animations.</li>
                     </ul>
                 </div>
 
                 <div class="card">
                     <div class="status-led"></div>
-                    <div class="project-img-placeholder">
-                        <i class="fas fa-microchip fa-2x"></i>
+                    <div class="project-img-container">
+                        <img src="Screenshot 2026-01-26 184301.png" alt="Avionics Telemetry">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">Rocketry Avionics Systems</h3>
                     <div class="tech-stack">
@@ -589,11 +593,11 @@
                         <span class="tech-tag">TELEMETRY</span>
                     </div>
                     <p style="font-size:0.9rem; color:var(--text-dim); margin-bottom:15px;">
-                        Led software development for ground station telemetry and live data transmission[cite: 130, 131].
+                        Led software development for ground station telemetry and live data transmission.
                     </p>
                     <ul>
-                        <li>Developed serial parsers to decode live telemetry streams[cite: 131].</li>
-                        <li>Designed Ground Station GUI for real-time mission monitoring[cite: 131].</li>
+                        <li>Developed serial parsers to decode live telemetry streams.</li>
+                        <li>Designed Ground Station GUI for real-time mission monitoring.</li>
                     </ul>
                 </div>
 
