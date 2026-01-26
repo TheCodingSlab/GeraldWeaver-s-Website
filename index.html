@@ -3,147 +3,432 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerald Weaver | Industrial & Systems Engineering Portfolio</title>
-    <meta name="description" content="Gerald Weaver: Liberty University ISE student and Assistant Project Manager specializing in Lean Six Sigma, rocketry avionics, and systems optimization.">
+    <title>Gerald Weaver | ISE & Avionics Specialist</title>
+    <meta name="description" content="Portfolio of Gerald Weaver: Industrial Systems Engineering student, Rocketry Avionics Specialist, and Lean Six Sigma practitioner.">
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=EB+Garamond:wght@400;600&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- CSS VARIABLES: THEME CONFIGURATION --- */
+        :root {
+            --bg-deep: #050b14;       /* Deep Space Blue/Black */
+            --bg-panel: #0f1724;      /* Panel Background */
+            --accent-primary: #00f0ff; /* Cyan Neon (HUD Style) */
+            --accent-secondary: #0056b3; /* Muted Blue */
+            --text-main: #e0e6ed;     /* Off-white for readability */
+            --text-dim: #94a3b8;      /* Dimmed text for metadata */
+            --border-tech: 1px solid rgba(0, 240, 255, 0.2);
+            --glass: rgba(15, 23, 36, 0.85);
+        }
+
+        /* --- GLOBAL RESET & TYPOGRAPHY --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 86, 179, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.05), transparent 25%);
+        }
+
+        h1, h2, h3, .mono-font {
+            font-family: 'JetBrains Mono', monospace; /* Coding/Engineering font */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        a { text-decoration: none; color: var(--accent-primary); transition: 0.3s; }
+        a:hover { text-shadow: 0 0 8px var(--accent-primary); }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .section-spacer { padding: 80px 0; }
+
+        /* --- NAVIGATION (HUD STYLE) --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border-tech);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 700; font-size: 1.2rem; color: var(--accent-primary); }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { font-size: 0.9rem; color: var(--text-dim); }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-primary); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero-content { z-index: 2; max-width: 800px; }
+        .hero-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border: var(--border-tech);
+            color: var(--accent-primary);
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            background: rgba(0, 240, 255, 0.05);
+        }
+        .hero h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; text-shadow: 0 0 20px rgba(0,240,255,0.2); }
+        .hero p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn:hover { background: var(--accent-primary); color: #000; box-shadow: 0 0 15px var(--accent-primary); }
+        .btn-filled { background: var(--accent-primary); color: #000; border: none; }
+
+        /* --- CARDS (PANELS) --- */
+        .card {
+            background: var(--bg-panel);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%;
+            background: var(--accent-secondary); transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent-primary); }
+        .card:hover::before { background: var(--accent-primary); box-shadow: 0 0 10px var(--accent-primary); }
+        
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .role { color: var(--accent-primary); font-weight: 700; font-size: 1.1rem; }
+        .company { color: var(--text-main); font-weight: 600; }
+        .date { font-size: 0.85rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+        .card ul { list-style: none; margin-top: 15px; }
+        .card li { 
+            position: relative; padding-left: 20px; margin-bottom: 8px; font-size: 0.95rem; color: var(--text-dim); 
+        }
+        .card li::before {
+            content: '>'; position: absolute; left: 0; color: var(--accent-primary); font-family: monospace;
+        }
+
+        /* --- SKILL BARS --- */
+        .skill-container { margin-bottom: 15px; }
+        .skill-header { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 5px; }
+        .progress-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+        .progress { height: 100%; background: var(--accent-primary); width: 0; transition: width 1.5s ease-in-out; }
+
+        /* --- CONTACT SECTION --- */
+        .contact-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; }
+        .contact-info-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .contact-icon { 
+            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--accent-primary); color: var(--accent-primary); border-radius: 50%;
+        }
+        
+        form input, form textarea {
+            width: 100%; padding: 15px; margin-bottom: 20px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-main); font-family: 'Inter', sans-serif;
+        }
+        form input:focus, form textarea:focus { outline: none; border-color: var(--accent-primary); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .grid-2, .contact-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* Mobile menu simplified for single-file copy/paste */
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="nav-container">
-            <h1 class="title-font"><a href="#home">Gerald Weaver</a></h1>
+
+    <nav>
+        <div class="container nav-inner">
+            <div class="logo">GW <span style="color:var(--text-dim)">//</span> SYSTEMS_ENG</div>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">STATUS</a></li>
+                <li><a href="#experience">LOGS</a></li>
+                <li><a href="#projects">OPERATIONS</a></li>
+                <li><a href="#skills">CAPABILITIES</a></li>
+                <li><a href="#contact">COMM LINK</a></li>
             </ul>
-        </nav>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <span class="hero-tag mono-font">CLEARANCE: UNCLASSIFIED</span>
+            <h1>Gerald Weaver</h1>
+            <p class="mono-font">Industrial & Systems Engineering | Rocketry Avionics<br>Lean Six Sigma Practitioner</p>
+            <div style="margin-top: 30px;">
+                <a href="#contact" class="btn btn-filled">INITIATE CONTACT</a>
+                <a href="#experience" class="btn">VIEW MISSION LOGS</a>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <img src="images/profile.png" alt="Gerald Weaver" class="profile-img">
-                <h2 class="title-font">Industrial & Systems Engineering<br>Assistant Project Manager @ Liberty Rocketry</h2>
-                <p>Driving operational excellence through Lean methodologies, avionics innovation, and data-driven leadership.</p>
-                <div class="hero-btns">
-                    <a href="https://www.linkedin.com/in/geraldaweaver/" target="_blank" rel="noopener" class="btn">LinkedIn</a>
-                    <a href="Gerald_Weaver_Resume.pdf" download class="btn btn-secondary">Download Resume</a>
+    <section id="about" class="section-spacer">
+        <div class="container">
+            <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                <span style="color:var(--accent-primary)">01.</span> Current Status
+            </h2>
+            <div class="grid-2">
+                <div>
+                    [cite_start]<h3 style="margin-bottom: 20px;">Academic Profile [cite: 2, 9]</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="role">B.S. Industrial & Systems Engineering</span>
+                        </div>
+                        <div class="company">Liberty University</div>
+                        <p class="date">Expected May 2027</p>
+                        <ul style="margin-top: 20px;">
+                            [cite_start]<li><strong>GPA:</strong> 3.79 [cite: 11]</li>
+                            [cite_start]<li><strong>Honors:</strong> Dean's List (2023-Present), Alpha Lambda Delta Honor Society [cite: 12, 13]</li>
+                            [cite_start]<li><strong>Relevant Coursework:</strong> Analog & Digital Design, Economic Analysis, Database Development [cite: 16]</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px;">Mission Statement</h3>
+                    <p style="color: var(--text-dim); margin-bottom: 20px;">
+                        Engineering student focused on the intersection of <strong>National Security</strong>, <strong>Operational Efficiency</strong>, and <strong>Aerospace Innovation</strong>. 
+                        [cite_start]Currently serving as Assistant Project Manager for Liberty Rocketry, overseeing 60+ engineers to optimize workflows and ensure mission success[cite: 42].
+                    </p>
+                    <p style="color: var(--text-dim);">
+                        Targeting opportunities in Logistics Engineering, Operations Research, and Avionics within the Defense sector.
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="about" class="section fade-section">
-            <h2 class="title-font">Professional Profile</h2>
-            <div class="content-grid">
+    <section id="experience" class="section-spacer" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                <span style="color:var(--accent-primary)">02.</span> Mission Logs
+            </h2>
+            
+            <div class="grid-2">
                 <div class="card">
-                    <h3 class="subtitle-font"><i class="fas fa-graduation-cap"></i> Education</h3>
-                    <p><strong>Liberty University</strong><br>B.S. Industrial & Systems Engineering<br>Aug 2023 - May 2027</p>
-                    <p><strong>GPA: 3.79</strong> | Dean's List (2023-Present)</p>
-                    <p><em>Alpha Lambda Delta Honor Society</em></p>
-                    <p class="small-text">Relevant Coursework: Economic Analysis, Database Development, Analog & Digital Design.</p>
-                </div>
-                <div class="card">
-                    <h3 class="subtitle-font"><i class="fas fa-users"></i> Leadership</h3>
+                    <div class="card-header">
+                        <span class="role">Assistant Project Manager</span>
+                        <span class="date">Oct 2025 - Present</span>
+                    </div>
+                    [cite_start]<div class="company">Liberty University Rocketry [cite: 41]</div>
                     <ul>
-                        <li><strong>Assistant Project Manager:</strong> Optimized cross-functional workflows for 60+ engineers.</li>
-                        <li><strong>IISE Director of Recruitment:</strong> Scaling membership via strategic outreach.</li>
-                        <li><strong>Eagle Scout:</strong> Proven foundation in servant leadership and resource management.</li>
+                        [cite_start]<li>Optimized file structures and data tracking for a 60+ member team, enhancing accessibility[cite: 42].</li>
+                        [cite_start]<li>Coordinated cross-communication among 8 engineering sub-teams (avionics, recovery, etc.)[cite: 43].</li>
+                        [cite_start]<li>Managed finances and stakeholder communications for Spaceport America Cup deliverables[cite: 43].</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="role">Avionics Systems Engineer</span>
+                        <span class="date">May 2025 - Present</span>
+                    </div>
+                    [cite_start]<div class="company">Liberty University Rocketry [cite: 50]</div>
+                    <ul>
+                        [cite_start]<li>Developed avionics software (C++/Python) for high-powered rocketry[cite: 50].</li>
+                        [cite_start]<li>Designed GUIs for real-time launch operations and telemetry tracking[cite: 51].</li>
+                        [cite_start]<li>Integrated hardware/software for robust reliability in competitive environments[cite: 54].</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="role">Software & Data Analyst Intern</span>
+                        <span class="date">Summer 2025</span>
+                    </div>
+                    [cite_start]<div class="company">Smiths Detection [cite: 55]</div>
+                    <ul>
+                        [cite_start]<li>Analyzed pricing/cost data using Python & SQL to improve margins[cite: 56].</li>
+                        [cite_start]<li>Conducted competitor research and presented data visualizations to stakeholders[cite: 57].</li>
+                        [cite_start]<li>Collaborated with pricing teams to implement data-driven process improvements[cite: 58].</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="role">Director of Recruitment</span>
+                        <span class="date">Jan 2025 - Present</span>
+                    </div>
+                    [cite_start]<div class="company">IISE / ASSP Chapter [cite: 59]</div>
+                    <ul>
+                        [cite_start]<li>Directed outreach strategies attracting 50+ new members[cite: 60].</li>
+                        [cite_start]<li>Organized professional development workshops and guest sessions[cite: 61].</li>
                     </ul>
                 </div>
             </div>
-        </section>
-
-        <section id="experience" class="section fade-section">
-            <h2 class="title-font">Experience & Operational Excellence</h2>
-            <div class="timeline">
-                
-                <div class="timeline-item">
-                    <h3 class="subtitle-font">Assistant Project Manager</h3>
-                    <p class="meta">Liberty University Rocketry | Oct 2025 – Present</p>
-                    <p>Orchestrate operations for a 60+ member team. Implemented <strong>standardized data tracking</strong> (Lean) to optimize file structures and enhance project accessibility. Coordinate cross-communication among 8 engineering sub-teams to align deliverables for Spaceport America Cup.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h3 class="subtitle-font">Avionics Systems & Software Engineer</h3>
-                    <p class="meta">Liberty University Rocketry | May 2025 – Present</p>
-                    <p>Develop high-reliability control systems using C++ and CircuitPython. Designed custom GUIs for real-time data acquisition and launch monitoring, ensuring <strong>zero-defect data transmission</strong> during competitive flights.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h3 class="subtitle-font">Software & Financial Data Analyst Intern</h3>
-                    <p class="meta">Smiths Detection | June – August 2025</p>
-                    <p>Leveraged Python and SQL to analyze pricing variance and cost data. Conducted competitor research and visualized insights to support strategic decision-making and <strong>improve profit margins</strong>.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h3 class="subtitle-font">Administrative & Operations Coordinator</h3>
-                    <p class="meta">Liberty University Rocketry | May 2025 – Nov 2025</p>
-                    <p>Led procurement and vendor negotiations, securing sponsorships to reduce costs. Streamlined documentation workflows and enforced safety compliance (FAA/NAR) through rigorous audits.</p>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="projects" class="section fade-section">
-            <h2 class="title-font">Key Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <h3 class="subtitle-font">AI Warehouse Optimization</h3>
-                    <p><strong>Metric:</strong> 26.47% Reduction in Waste (MUDA)</p>
-                    <p>Simulated a factory layout using Python (NumPy/Pandas) and implemented greedy algorithms to optimize picking routes, demonstrating core logistics engineering skills.</p>
-                </div>
-                <div class="project-card">
-                    <h3 class="subtitle-font">Rocketry Team Website & Portal</h3>
-                    <p><strong>Metric:</strong> 100% Digital Transformation</p>
-                    <p>Developed a custom team website to centralize recruitment and sponsor relations. Optimized information architecture to improve stakeholder engagement.</p>
-                    <a href="https://libertyrocketry.org" target="_blank" class="btn-text">View Site →</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills" class="section fade-section">
-            <h2 class="title-font">Technical Expertise</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3 class="subtitle-font">Lean & Six Sigma</h3>
-                    <p>DMAIC, Value Stream Mapping, Root Cause Analysis, Kaizen, 5S, Process Standardization, Cost-Benefit Analysis.</p>
-                </div>
-                <div class="skill-category">
-                    <h3 class="subtitle-font">Development & Data</h3>
-                    <p>Python (Advanced), CircuitPython, C++, C#, SQL Server Management, Power Apps, MATLAB, Excel (VBA).</p>
-                </div>
-                <div class="skill-category">
-                    <h3 class="subtitle-font">Engineering Tools</h3>
-                    <p>OnShape 3D Modeling, System & Facilities Design, Project Management (Notion/Teams).</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <section id="contact" class="section fade-section contact-section">
-        <h2 class="title-font">Connect</h2>
-        <p style="text-align: center; margin-bottom: 20px;">Open to opportunities in Logistics Engineering, Operations Research, and Defense.</p>
-        <form action="https://formspree.io/f/YOUR_ID_HERE" method="POST" class="contact-form">
-            <input type="text" name="name" placeholder="Name" required aria-label="Name">
-            <input type="email" name="email" placeholder="Email" required aria-label="Email">
-            <textarea name="message" placeholder="Message" required aria-label="Message"></textarea>
-            <button type="submit" class="btn">Send Message</button>
-        </form>
+        </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 Gerald Weaver | Soli Deo Gloria</p>
-        <div class="footer-socials">
-            <a href="https://www.linkedin.com/in/geraldaweaver/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:gaweaver3@liberty.edu" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    <section id="skills" class="section-spacer">
+        <div class="container">
+            <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                <span style="color:var(--accent-primary)">03.</span> Technical Capabilities
+            </h2>
+            <div class="grid-3">
+                
+                <div class="card">
+                    <h3 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Development</h3>
+                    <div class="skill-container">
+                        [cite_start]<div class="skill-header"><span>Python / CircuitPython [cite: 27]</span> <span>90%</span></div>
+                        <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill-container">
+                        [cite_start]<div class="skill-header"><span>C++ / C# [cite: 28]</span> <span>85%</span></div>
+                        <div class="progress-bar"><div class="progress" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-container">
+                        [cite_start]<div class="skill-header"><span>SQL / Database [cite: 33]</span> <span>80%</span></div>
+                        <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Engineering</h3>
+                    <div class="skill-container">
+                        [cite_start]<div class="skill-header"><span>System & Facilities Design [cite: 24]</span> <span>85%</span></div>
+                        <div class="progress-bar"><div class="progress" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-container">
+                        <div class="skill-header"><span>Lean Six Sigma (DMAIC)</span> <span>80%</span></div>
+                        <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+                    </div>
+                    <div class="skill-container">
+                        [cite_start]<div class="skill-header"><span>OnShape 3D Modeling [cite: 34]</span> <span>75%</span></div>
+                        <div class="progress-bar"><div class="progress" style="width: 75%"></div></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Tools</h3>
+                    <ul style="margin-top: 0;">
+                        [cite_start]<li>MATLAB [cite: 31]</li>
+                        [cite_start]<li>Microsoft Power Apps [cite: 32]</li>
+                        [cite_start]<li>Linux Environment [cite: 26]</li>
+                        [cite_start]<li>Excel (Advanced/VBA) [cite: 30]</li>
+                    </ul>
+                </div>
+
+            </div>
         </div>
+    </section>
+
+    <section id="contact" class="section-spacer" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                <span style="color:var(--accent-primary)">04.</span> Comm Link
+            </h2>
+            <div class="contact-grid">
+                <div>
+                    <p style="margin-bottom: 30px; color: var(--text-dim);">
+                        Ready to deploy skills in logistics optimization, avionics software, and systems engineering for national defense initiatives.
+                    </p>
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <div style="font-size: 0.8rem; color: var(--text-dim);">Email Secure Line</div>
+                            [cite_start]<a href="mailto:gaweaver3@liberty.edu">gaweaver3@liberty.edu</a> [cite: 3]
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <div style="font-size: 0.8rem; color: var(--text-dim);">Phone</div>
+                            [cite_start]<span>443-206-6200</span> [cite: 6]
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
+                        <div>
+                            <div style="font-size: 0.8rem; color: var(--text-dim);">Network</div>
+                            [cite_start]<a href="https://www.linkedin.com/in/geraldaweaver" target="_blank">linkedin.com/in/geraldaweaver</a> [cite: 5]
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                        <input type="text" name="name" placeholder="IDENTIFIER (Name)" required>
+                        <input type="email" name="email" placeholder="CONTACT FREQUENCY (Email)" required>
+                        <textarea name="message" rows="5" placeholder="TRANSMISSION CONTENT..." required></textarea>
+                        <button type="submit" class="btn btn-filled">TRANSMIT DATA</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px 0; border-top: var(--border-tech); margin-top: 40px;">
+        <p class="mono-font" style="font-size: 0.9rem; color: var(--text-dim);">
+            SYSTEM STATUS: ONLINE <span style="color:var(--accent-primary)">●</span> | © 2026 GERALD WEAVER
+        </p>
+        <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.5;">SOLI DEO GLORIA</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Smooth reveal animation on scroll
+        const observerOptions = { threshold: 0.1 };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        });
+
+        // Apply fade-in to all cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = "0";
+            card.style.transform = "translateY(20px)";
+            card.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+            observer.observe(card);
+        });
+
+        // Simple typing effect for Hero Title
+        const text = "Gerald Weaver";
+        const titleElement = document.querySelector('.hero h1');
+        let i = 0;
+        
+        // Clear text initially for effect
+        titleElement.textContent = ""; 
+        
+        function typeWriter() {
+            if (i < text.length) {
+                titleElement.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            } else {
+                // Add blinking cursor
+                titleElement.innerHTML += '<span style="color:var(--accent-primary)">_</span>';
+            }
+        }
+        
+        // Start typing after page load
+        window.onload = typeWriter;
+    </script>
 </body>
 </html>
