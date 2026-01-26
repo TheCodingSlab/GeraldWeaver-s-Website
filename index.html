@@ -32,8 +32,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             height: 100vh;
-            /* UPGRADE: Tactical Cursor */
-            cursor: crosshair; 
+            cursor: crosshair; /* Tactical Cursor */
         }
 
         /* Scrollbar Styling */
@@ -51,7 +50,7 @@
         a { text-decoration: none; color: var(--accent-primary); transition: 0.3s; cursor: pointer; }
         a:hover { text-shadow: 0 0 8px var(--accent-primary); }
 
-        /* --- UPGRADE: SYSTEM BOOT SCREEN --- */
+        /* --- SYSTEM BOOT SCREEN --- */
         #boot-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000;
@@ -73,7 +72,7 @@
         @keyframes load { to { width: 100%; } }
         @keyframes fadeOutScreen { to { opacity: 0; pointer-events: none; } }
 
-        /* --- FX 1: STARFIELD BACKGROUND --- */
+        /* --- FX: VISUALS --- */
         .stars {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background: #000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
@@ -81,7 +80,6 @@
         }
         @keyframes move-stars { from {background-position:0 0;} to {background-position:-10000px 5000px;} }
 
-        /* --- FX 2: RADAR GRID --- */
         .radar-grid {
             position: fixed; top: 55%; left: 50%; width: 200vw; height: 200vw;
             background-image: 
@@ -98,7 +96,6 @@
             to { transform: translate(-50%, -50%) perspective(500px) rotateX(60deg) rotateZ(360deg); }
         }
 
-        /* --- FX 3: SCANLINES & VIGNETTE --- */
         .scanlines {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
@@ -146,7 +143,6 @@
             border-bottom: 1px solid rgba(0,240,255,0.1); display: inline-block; padding-bottom: 5px;
         }
 
-        /* GLITCH TITLE */
         .glitch-wrapper { position: relative; display: inline-block; }
         .hero h1 {
             font-size: 4rem; line-height: 1.1; margin-bottom: 20px;
@@ -194,6 +190,7 @@
         .card {
             background: var(--bg-panel); padding: 30px; position: relative;
             border: 1px solid rgba(0, 240, 255, 0.1); transition: 0.3s; overflow: hidden;
+            display: flex; flex-direction: column;
         }
         
         .status-led {
@@ -204,15 +201,15 @@
         }
         @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.3;} 100% {opacity: 1;} }
 
-        /* Target Lock Corners */
+        .card:hover { transform: translateY(-5px); background: rgba(0, 240, 255, 0.04); border-color: var(--accent-primary); }
+        
+        /* Corner Brackets */
         .card::before, .card::after {
             content: ''; position: absolute; width: 10px; height: 10px;
             transition: 0.3s; opacity: 0.5; border-color: var(--accent-primary);
         }
         .card::before { top: 0; left: 0; border-top: 2px solid; border-left: 2px solid; }
         .card::after { bottom: 0; right: 0; border-bottom: 2px solid; border-right: 2px solid; }
-
-        .card:hover { transform: translateY(-5px); background: rgba(0, 240, 255, 0.04); border-color: var(--accent-primary); }
         .card:hover::before, .card:hover::after { width: 100%; height: 100%; opacity: 1; }
 
         .card-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
@@ -229,6 +226,18 @@
             content: '⬢'; position: absolute; left: 0; top: 2px;
             color: var(--accent-primary); font-size: 0.8rem;
         }
+
+        /* --- COURSE GRID (Mini) --- */
+        .course-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+            font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--text-dim);
+            margin-top: 15px;
+        }
+        .course-item { 
+            border: 1px solid rgba(255,255,255,0.1); padding: 5px 10px; 
+            background: rgba(0,0,0,0.2); 
+        }
+        .course-item:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
 
         /* --- SKILLS --- */
         .skill-container { margin-bottom: 15px; }
@@ -264,8 +273,8 @@
 
     <div id="boot-screen">
         <div class="boot-text">INITIALIZING SYSTEMS...</div>
-        <div class="boot-text" style="animation-delay: 0.5s">ESTABLISHING SECURE LINK...</div>
-        <div class="boot-text" style="animation-delay: 1.0s">LOADING MISSION PROFILE...</div>
+        <div class="boot-text" style="animation-delay: 0.5s">LOADING PROFILE: G_WEAVER...</div>
+        <div class="boot-text" style="animation-delay: 1.0s">ACCESS GRANTED.</div>
         <div class="loading-bar-container">
             <div class="loading-bar"></div>
         </div>
@@ -326,10 +335,24 @@
                         <span class="company">Liberty University</span>
                         <p class="date">Expected May 2027</p>
                         <ul>
-                            <li><strong>GPA:</strong> 3.79</li>
-                            <li><strong>Honors:</strong> Dean's List (2023-Present), Alpha Lambda Delta</li>
-                            <li><strong>Focus:</strong> Analog/Digital Design, DB Analysis</li>
+                            <li><strong>GPA:</strong> 3.79 | Dean's List (2023-Present)</li>
+                            <li><strong>Societies:</strong> Alpha Lambda Delta Honor Society</li>
                         </ul>
+                        
+                        <div style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                            <span class="mono-font" style="font-size: 0.8rem; color: var(--accent-primary);">[TRAINING DATA LOG]</span>
+                            <div class="course-grid">
+                                <div class="course-item">ENGI 460 Digital Sim</div>
+                                <div class="course-item">ENGI 371 Six Sigma</div>
+                                <div class="course-item">ENGR 370 Quality Assurance</div>
+                                <div class="course-item">ENGI 350 Ops Research</div>
+                                <div class="course-item">ENGI 360 Info Systems</div>
+                                <div class="course-item">ENGI 330 Facilities Design</div>
+                                <div class="course-item">ENGI 305 Data Analysis</div>
+                                <div class="course-item">ENGR 235 Statics</div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div>
@@ -345,7 +368,7 @@
                     </div>
 
                     <p style="color: var(--text-dim);">
-                        Currently serving as Assistant Project Manager for Liberty Rocketry, overseeing 60+ engineers. Targeting opportunities in Logistics Engineering and Avionics within the Defense sector.
+                        Targeting opportunities in Logistics Engineering, Operations Research, and Avionics within the Defense sector.
                     </p>
                 </div>
             </div>
@@ -359,6 +382,7 @@
             </h2>
             
             <div class="grid-2">
+                
                 <div class="card">
                     <div class="status-led"></div>
                     <div class="card-header">
@@ -367,9 +391,9 @@
                     </div>
                     <span class="company">Liberty University Rocketry</span>
                     <ul>
-                        <li>Optimized file structures and data tracking for a 60+ member team.</li>
-                        <li>Coordinated cross-communication among 8 engineering sub-teams.</li>
-                        <li>Managed finances and stakeholder communications for Spaceport America Cup.</li>
+                        <li>Assisted in optimizing file structures and data tracking for a 60+ member team.</li>
+                        <li>Coordinated cross-communication among 8 engineering sub-teams (avionics, recovery, etc.).</li>
+                        <li>Managed stakeholder communications and finances for Spaceport America Cup.</li>
                     </ul>
                 </div>
 
@@ -391,13 +415,27 @@
                     <div class="status-led"></div>
                     <div class="card-header">
                         <span class="role">Software & Data Analyst Intern</span>
-                        <span class="date">Summer 2025</span>
+                        <span class="date">Jun 2025 - Aug 2025</span>
                     </div>
                     <span class="company">Smiths Detection</span>
                     <ul>
                         <li>Analyzed pricing/cost data using Python & SQL to improve margins.</li>
                         <li>Conducted competitor research and visualized data for stakeholders.</li>
                         <li>Collaborated with pricing teams to implement data-driven improvements.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="status-led"></div>
+                    <div class="card-header">
+                        <span class="role">Admin & Ops Coordinator</span>
+                        <span class="date">May 2025 - Nov 2025</span>
+                    </div>
+                    <span class="company">Liberty University Rocketry</span>
+                    <ul>
+                        <li>Led procurement and vendor negotiations, securing sponsorships to cut costs.</li>
+                        <li>Enforced FAA/NAR safety compliance through audits and briefings.</li>
+                        <li>Streamlined documentation and logistics for a 60-member team.</li>
                     </ul>
                 </div>
 
@@ -413,6 +451,20 @@
                         <li>Organized professional development workshops and guest sessions.</li>
                     </ul>
                 </div>
+
+                <div class="card">
+                    <div class="status-led"></div>
+                    <div class="card-header">
+                        <span class="role">Houseman Intern</span>
+                        <span class="date">Jun 2024 - Sep 2024</span>
+                    </div>
+                    <span class="company">Disney (Contemporary Resort)</span>
+                    <ul>
+                        <li>Gained exposure to engineering operations in a high-volume resort environment.</li>
+                        <li>Maintained operational standards and cleanliness for guest areas.</li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </section>
