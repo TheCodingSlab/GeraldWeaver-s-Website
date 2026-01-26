@@ -10,19 +10,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        /* --- CSS VARIABLES: THEME CONFIGURATION --- */
+        /* --- CSS VARIABLES --- */
         :root {
-            --bg-deep: #050b14;       /* Deep Space Blue/Black */
-            --bg-panel: #0f1724;      /* Panel Background */
-            --accent-primary: #00f0ff; /* Cyan Neon (HUD Style) */
-            --accent-secondary: #0056b3; /* Muted Blue */
-            --text-main: #e0e6ed;     /* Off-white for readability */
-            --text-dim: #94a3b8;      /* Dimmed text for metadata */
+            --bg-deep: #050b14;
+            --bg-panel: #0f1724;
+            --accent-primary: #00f0ff;
+            --accent-secondary: #0056b3;
+            --text-main: #e0e6ed;
+            --text-dim: #94a3b8;
             --border-tech: 1px solid rgba(0, 240, 255, 0.2);
-            --glass: rgba(15, 23, 36, 0.85);
+            --glass: rgba(15, 23, 36, 0.9);
         }
 
-        /* --- GLOBAL RESET & TYPOGRAPHY --- */
+        /* --- GLOBAL SETTINGS --- */
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
         
         body {
@@ -31,10 +31,7 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
-            /* Static background gradient */
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(0, 86, 179, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.05), transparent 25%);
+            height: 100vh;
         }
 
         h1, h2, h3, .mono-font {
@@ -46,28 +43,21 @@
         a { text-decoration: none; color: var(--accent-primary); transition: 0.3s; }
         a:hover { text-shadow: 0 0 8px var(--accent-primary); }
 
-        /* --- UPGRADE 1: CRT SCANLINES & VIGNETTE --- */
-        .scanlines {
+        /* --- FX 1: STARFIELD BACKGROUND --- */
+        .stars {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
-            background-size: 100% 4px;
-            pointer-events: none; /* Click through */
-            z-index: 9999;
-            opacity: 0.3;
+            z-index: -2;
+            background: #000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+            animation: move-stars 200s linear infinite;
+            opacity: 0.6;
         }
-        .vignette {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,10,20,0.6) 100%);
-            pointer-events: none;
-            z-index: 9998;
-        }
+        @keyframes move-stars { from {background-position:0 0;} to {background-position:-10000px 5000px;} }
 
-        /* --- UPGRADE 2: 3D RADAR GRID BACKGROUND --- */
+        /* --- FX 2: RADAR GRID --- */
         .radar-grid {
             position: fixed;
-            top: 50%; left: 50%;
+            top: 55%; left: 50%;
             width: 200vw; height: 200vw;
             background-image: 
                 linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
@@ -75,175 +65,188 @@
             background-size: 100px 100px;
             transform: translate(-50%, -50%) perspective(500px) rotateX(60deg);
             animation: radar-spin 60s linear infinite;
-            z-index: -1; /* Behind everything */
+            z-index: -1;
             pointer-events: none;
+            mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%);
         }
-
         @keyframes radar-spin {
             from { transform: translate(-50%, -50%) perspective(500px) rotateX(60deg) rotateZ(0deg); }
             to { transform: translate(-50%, -50%) perspective(500px) rotateX(60deg) rotateZ(360deg); }
         }
 
-        /* --- LAYOUT UTILITIES --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .section-spacer { padding: 80px 0; }
+        /* --- FX 3: SCANLINES & VIGNETTE --- */
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            pointer-events: none; z-index: 9999; opacity: 0.3;
+        }
+        .vignette {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,10,20,0.8) 100%);
+            pointer-events: none; z-index: 9998;
+        }
 
         /* --- NAVIGATION --- */
         nav {
-            position: fixed;
-            top: 0; width: 100%;
+            position: fixed; top: 0; width: 100%;
             background: var(--glass);
             backdrop-filter: blur(10px);
             border-bottom: var(--border-tech);
-            z-index: 1000;
-            padding: 15px 0;
+            z-index: 1000; padding: 15px 0;
         }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-weight: 700; font-size: 1.2rem; color: var(--accent-primary); }
         .nav-links { list-style: none; display: flex; gap: 30px; }
-        .nav-links a { font-size: 0.9rem; color: var(--text-dim); }
-        .nav-links a:hover, .nav-links a.active { color: var(--accent-primary); }
+        .nav-links a { font-size: 0.85rem; color: var(--text-dim); position: relative; }
+        
+        /* Active State Marker */
+        .nav-links a.active, .nav-links a:hover { color: var(--accent-primary); }
+        .nav-links a.active::after {
+            content: ''; position: absolute; bottom: -20px; left: 0;
+            width: 100%; height: 2px; background: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
+        }
 
-        /* --- HERO SECTION & UPGRADE 3: TELEMETRY --- */
+        /* --- HERO --- */
         .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; position: relative;
         }
         .hero-content { z-index: 2; max-width: 800px; }
         .hero-tag {
-            display: inline-block;
-            padding: 5px 12px;
-            border: var(--border-tech);
-            color: var(--accent-primary);
-            font-size: 0.8rem;
-            margin-bottom: 20px;
+            display: inline-block; padding: 5px 12px;
+            border: var(--border-tech); color: var(--accent-primary);
+            font-size: 0.8rem; margin-bottom: 20px;
             background: rgba(0, 240, 255, 0.05);
         }
-        
         .telemetry-bar {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(0,240,255,0.1);
-            display: inline-block;
-            padding-bottom: 5px;
+            font-size: 0.75rem; color: var(--text-dim); margin-bottom: 15px;
+            border-bottom: 1px solid rgba(0,240,255,0.1); display: inline-block; padding-bottom: 5px;
         }
 
-        .hero h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; text-shadow: 0 0 20px rgba(0,240,255,0.2); }
-        .hero p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        /* --- FX 4: GLITCH TITLE --- */
+        .glitch-wrapper { position: relative; display: inline-block; }
+        .hero h1 {
+            font-size: 4rem; line-height: 1.1; margin-bottom: 20px;
+            color: var(--text-main); position: relative;
+        }
+        .hero h1::before, .hero h1::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        }
+        .hero h1::before {
+            left: 2px; text-shadow: -1px 0 #ff00c1; clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        .hero h1::after {
+            left: -2px; text-shadow: -1px 0 #00fff9; clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(13px, 9999px, 81px, 0); }
+            5% { clip: rect(89px, 9999px, 2px, 0); }
+            100% { clip: rect(18px, 9999px, 55px, 0); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(69px, 9999px, 13px, 0); }
+            5% { clip: rect(2px, 9999px, 68px, 0); }
+            100% { clip: rect(42px, 9999px, 20px, 0); }
+        }
+
+        .hero p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 30px; }
         
         .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: transparent;
-            border: 1px solid var(--accent-primary);
-            color: var(--accent-primary);
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 100; /* Ensure clickable over scanlines */
+            display: inline-block; padding: 12px 30px;
+            background: rgba(0, 240, 255, 0.05); border: 1px solid var(--accent-primary);
+            color: var(--accent-primary); font-family: 'JetBrains Mono', monospace;
+            font-weight: 700; cursor: pointer; transition: all 0.3s;
+            position: relative; z-index: 100;
         }
-        .btn:hover { background: var(--accent-primary); color: #000; box-shadow: 0 0 15px var(--accent-primary); }
+        .btn:hover { background: var(--accent-primary); color: #000; box-shadow: 0 0 20px var(--accent-primary); }
         .btn-filled { background: var(--accent-primary); color: #000; border: none; }
 
-        /* --- UPGRADE 4: TARGET LOCK CARDS --- */
+        /* --- CARDS & PANELS --- */
+        .section-spacer { padding: 100px 0; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
         .card {
-            background: var(--bg-panel);
-            padding: 25px;
-            position: relative; /* Essential for corners */
-            border: 1px solid rgba(0, 240, 255, 0.1);
-            transition: transform 0.3s, background 0.3s;
-            overflow: hidden; /* Keeps content inside */
-        }
-
-        /* The Corner Brackets */
-        .card::after, .card::before {
-            content: '';
-            position: absolute;
-            width: 20px; height: 20px;
-            transition: 0.3s ease-out;
-            opacity: 0;
-            z-index: 10;
-        }
-
-        /* Top Right & Bottom Left corners */
-        .card::before {
-            top: 0; left: 0;
-            border-top: 2px solid var(--accent-primary);
-            border-left: 2px solid var(--accent-primary);
-        }
-        .card::after {
-            bottom: 0; right: 0;
-            border-bottom: 2px solid var(--accent-primary);
-            border-right: 2px solid var(--accent-primary);
-        }
-
-        /* Hover State - Expansion */
-        .card:hover::before, .card:hover::after {
-            opacity: 1;
-            width: 100%; height: 100%; /* Expands to full border */
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
-            background: rgba(0, 240, 255, 0.04);
-            border-color: transparent; /* Let pseudo-elements handle border */
+            background: var(--bg-panel); padding: 30px; position: relative;
+            border: 1px solid rgba(0, 240, 255, 0.1); transition: 0.3s; overflow: hidden;
         }
         
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        /* FX 5: STATUS LED */
+        .status-led {
+            position: absolute; top: 15px; right: 15px;
+            width: 8px; height: 8px; background: #00ff00;
+            border-radius: 50%; box-shadow: 0 0 5px #00ff00;
+            animation: blink 2s infinite;
+        }
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.3;} 100% {opacity: 1;} }
+
+        /* Target Lock Corners */
+        .card::before, .card::after {
+            content: ''; position: absolute; width: 10px; height: 10px;
+            transition: 0.3s; opacity: 0.5; border-color: var(--accent-primary);
+        }
+        .card::before { top: 0; left: 0; border-top: 2px solid; border-left: 2px solid; }
+        .card::after { bottom: 0; right: 0; border-bottom: 2px solid; border-right: 2px solid; }
+
+        .card:hover { transform: translateY(-5px); background: rgba(0, 240, 255, 0.04); border-color: var(--accent-primary); }
+        .card:hover::before, .card:hover::after { width: 100%; height: 100%; opacity: 1; }
+
+        .card-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
         .role { color: var(--accent-primary); font-weight: 700; font-size: 1.1rem; }
-        .company { color: var(--text-main); font-weight: 600; }
-        .date { font-size: 0.85rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+        .company { color: var(--text-main); font-weight: 600; margin-bottom: 10px; display: block; }
+        .date { font-size: 0.8rem; color: var(--text-dim); font-family: 'JetBrains Mono'; }
+        
         .card ul { list-style: none; margin-top: 15px; }
         .card li { 
-            position: relative; padding-left: 20px; margin-bottom: 8px; font-size: 0.95rem; color: var(--text-dim); 
+            position: relative; padding-left: 25px; margin-bottom: 10px; 
+            font-size: 0.95rem; color: var(--text-dim); 
         }
+        /* FX 6: HEXAGON BULLETS */
         .card li::before {
-            content: '>'; position: absolute; left: 0; color: var(--accent-primary); font-family: monospace;
+            content: '⬢'; position: absolute; left: 0; top: 2px;
+            color: var(--accent-primary); font-size: 0.8rem;
         }
 
-        /* --- SKILL BARS --- */
+        /* --- SKILLS --- */
         .skill-container { margin-bottom: 15px; }
-        .skill-header { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 5px; }
-        .progress-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
-        .progress { height: 100%; background: var(--accent-primary); width: 0; transition: width 1.5s ease-in-out; }
+        .skill-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; font-family: 'JetBrains Mono'; }
+        .progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.1); }
+        .progress { height: 100%; background: var(--accent-primary); width: 0; transition: width 1.5s ease-out; box-shadow: 0 0 10px var(--accent-primary); }
 
-        /* --- CONTACT SECTION --- */
-        .contact-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; }
-        .contact-info-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        /* --- CONTACT --- */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         .contact-icon { 
             width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-            border: 1px solid var(--accent-primary); color: var(--accent-primary); border-radius: 50%;
+            border: 1px solid var(--accent-primary); color: var(--accent-primary); 
+            background: rgba(0,240,255,0.05); margin-right: 15px;
         }
-        
+        .contact-item { display: flex; align-items: center; margin-bottom: 20px; }
+
         form input, form textarea {
             width: 100%; padding: 15px; margin-bottom: 20px;
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-main); font-family: 'Inter', sans-serif;
-            position: relative; z-index: 50;
+            background: rgba(5, 11, 20, 0.8); border: 1px solid rgba(0, 240, 255, 0.2);
+            color: var(--accent-primary); font-family: 'JetBrains Mono';
         }
-        form input:focus, form textarea:focus { outline: none; border-color: var(--accent-primary); }
+        form input:focus, form textarea:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 10px rgba(0,240,255,0.2); }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .grid-2, .contact-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; } 
-            .radar-grid { display: none; } /* Disable radar on mobile for performance */
+            .hero h1 { font-size: 2.5rem; }
+            .grid-2, .grid-3, .contact-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .radar-grid { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <div class="stars"></div>
     <div class="scanlines"></div>
     <div class="vignette"></div>
     <div class="radar-grid"></div>
@@ -252,11 +255,10 @@
         <div class="container nav-inner">
             <div class="logo">GW <span style="color:var(--text-dim)">//</span> SYSTEMS_ENG</div>
             <ul class="nav-links">
-                <li><a href="#about">STATUS</a></li>
-                <li><a href="#experience">LOGS</a></li>
-                <li><a href="#projects">OPERATIONS</a></li>
-                <li><a href="#skills">CAPABILITIES</a></li>
-                <li><a href="#contact">COMM LINK</a></li>
+                <li><a href="#about" class="nav-link">STATUS</a></li>
+                <li><a href="#experience" class="nav-link">LOGS</a></li>
+                <li><a href="#skills" class="nav-link">CAPABILITIES</a></li>
+                <li><a href="#contact" class="nav-link">COMM LINK</a></li>
             </ul>
         </div>
     </nav>
@@ -266,12 +268,15 @@
             <span class="hero-tag mono-font">CLEARANCE: UNCLASSIFIED</span>
             
             <div class="telemetry-bar mono-font">
-                <span id="zulu-clock">LOADING TIME...</span> | 
+                <span id="zulu-clock">SYNCING...</span> | 
                 <span style="color:var(--accent-primary)">LAT: 37.3496° N</span> | 
                 <span style="color:var(--accent-primary)">LNG: 79.1724° W</span>
             </div>
 
-            <h1>Gerald Weaver</h1>
+            <div class="glitch-wrapper">
+                <h1 data-text="GERALD WEAVER">GERALD WEAVER</h1>
+            </div>
+            
             <p class="mono-font">Industrial & Systems Engineering | Rocketry Avionics<br>Lean Six Sigma Practitioner</p>
             <div style="margin-top: 30px;">
                 <a href="#contact" class="btn btn-filled">INITIATE CONTACT</a>
@@ -289,15 +294,16 @@
                 <div>
                     <h3 style="margin-bottom: 20px;">Academic Profile</h3>
                     <div class="card">
+                        <div class="status-led"></div>
                         <div class="card-header">
                             <span class="role">B.S. Industrial & Systems Engineering</span>
                         </div>
-                        <div class="company">Liberty University</div>
+                        <span class="company">Liberty University</span>
                         <p class="date">Expected May 2027</p>
-                        <ul style="margin-top: 20px;">
+                        <ul>
                             <li><strong>GPA:</strong> 3.79</li>
-                            <li><strong>Honors:</strong> Dean's List (2023-Present), Alpha Lambda Delta Honor Society</li>
-                            <li><strong>Relevant Coursework:</strong> Analog & Digital Design, Economic Analysis, Database Development</li>
+                            <li><strong>Honors:</strong> Dean's List (2023-Present), Alpha Lambda Delta</li>
+                            <li><strong>Focus:</strong> Analog/Digital Design, DB Analysis</li>
                         </ul>
                     </div>
                 </div>
@@ -315,7 +321,7 @@
         </div>
     </section>
 
-    <section id="experience" class="section-spacer" style="background: rgba(255,255,255,0.02);">
+    <section id="experience" class="section-spacer">
         <div class="container">
             <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
                 <span style="color:var(--accent-primary)">02.</span> Mission Logs
@@ -323,24 +329,26 @@
             
             <div class="grid-2">
                 <div class="card">
+                    <div class="status-led"></div>
                     <div class="card-header">
                         <span class="role">Assistant Project Manager</span>
                         <span class="date">Oct 2025 - Present</span>
                     </div>
-                    <div class="company">Liberty University Rocketry</div>
+                    <span class="company">Liberty University Rocketry</span>
                     <ul>
-                        <li>Optimized file structures and data tracking for a 60+ member team, enhancing accessibility.</li>
-                        <li>Coordinated cross-communication among 8 engineering sub-teams (avionics, recovery, etc.).</li>
-                        <li>Managed finances and stakeholder communications for Spaceport America Cup deliverables.</li>
+                        <li>Optimized file structures and data tracking for a 60+ member team.</li>
+                        <li>Coordinated cross-communication among 8 engineering sub-teams.</li>
+                        <li>Managed finances and stakeholder communications for Spaceport America Cup.</li>
                     </ul>
                 </div>
 
                 <div class="card">
+                    <div class="status-led"></div>
                     <div class="card-header">
                         <span class="role">Avionics Systems Engineer</span>
                         <span class="date">May 2025 - Present</span>
                     </div>
-                    <div class="company">Liberty University Rocketry</div>
+                    <span class="company">Liberty University Rocketry</span>
                     <ul>
                         <li>Developed avionics software (C++/Python) for high-powered rocketry.</li>
                         <li>Designed GUIs for real-time launch operations and telemetry tracking.</li>
@@ -349,24 +357,26 @@
                 </div>
 
                 <div class="card">
+                    <div class="status-led"></div>
                     <div class="card-header">
                         <span class="role">Software & Data Analyst Intern</span>
                         <span class="date">Summer 2025</span>
                     </div>
-                    <div class="company">Smiths Detection</div>
+                    <span class="company">Smiths Detection</span>
                     <ul>
                         <li>Analyzed pricing/cost data using Python & SQL to improve margins.</li>
-                        <li>Conducted competitor research and presented data visualizations to stakeholders.</li>
-                        <li>Collaborated with pricing teams to implement data-driven process improvements.</li>
+                        <li>Conducted competitor research and visualized data for stakeholders.</li>
+                        <li>Collaborated with pricing teams to implement data-driven improvements.</li>
                     </ul>
                 </div>
 
                 <div class="card">
+                    <div class="status-led"></div>
                     <div class="card-header">
                         <span class="role">Director of Recruitment</span>
                         <span class="date">Jan 2025 - Present</span>
                     </div>
-                    <div class="company">IISE / ASSP Chapter</div>
+                    <span class="company">IISE / ASSP Chapter</span>
                     <ul>
                         <li>Directed outreach strategies attracting 50+ new members.</li>
                         <li>Organized professional development workshops and guest sessions.</li>
@@ -382,8 +392,8 @@
                 <span style="color:var(--accent-primary)">03.</span> Technical Capabilities
             </h2>
             <div class="grid-3">
-                
                 <div class="card">
+                    <div class="status-led"></div>
                     <h3 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Development</h3>
                     <div class="skill-container">
                         <div class="skill-header"><span>Python / CircuitPython</span> <span>90%</span></div>
@@ -400,6 +410,7 @@
                 </div>
 
                 <div class="card">
+                    <div class="status-led"></div>
                     <h3 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Engineering</h3>
                     <div class="skill-container">
                         <div class="skill-header"><span>System & Facilities Design</span> <span>85%</span></div>
@@ -416,20 +427,20 @@
                 </div>
 
                 <div class="card">
+                    <div class="status-led"></div>
                     <h3 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Tools</h3>
-                    <ul style="margin-top: 0;">
+                    <ul style="margin-top: 10px;">
                         <li>MATLAB</li>
                         <li>Microsoft Power Apps</li>
                         <li>Linux Environment</li>
                         <li>Excel (Advanced/VBA)</li>
                     </ul>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <section id="contact" class="section-spacer" style="background: rgba(255,255,255,0.02);">
+    <section id="contact" class="section-spacer">
         <div class="container">
             <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
                 <span style="color:var(--accent-primary)">04.</span> Comm Link
@@ -439,21 +450,21 @@
                     <p style="margin-bottom: 30px; color: var(--text-dim);">
                         Ready to deploy skills in logistics optimization, avionics software, and systems engineering for national defense initiatives.
                     </p>
-                    <div class="contact-info-item">
+                    <div class="contact-item">
                         <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                         <div>
                             <div style="font-size: 0.8rem; color: var(--text-dim);">Email Secure Line</div>
                             <a href="mailto:gaweaver3@liberty.edu">gaweaver3@liberty.edu</a>
                         </div>
                     </div>
-                    <div class="contact-info-item">
+                    <div class="contact-item">
                         <div class="contact-icon"><i class="fas fa-phone"></i></div>
                         <div>
                             <div style="font-size: 0.8rem; color: var(--text-dim);">Phone</div>
                             <span>443-206-6200</span>
                         </div>
                     </div>
-                    <div class="contact-info-item">
+                    <div class="contact-item">
                         <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
                         <div>
                             <div style="font-size: 0.8rem; color: var(--text-dim);">Network</div>
@@ -481,9 +492,8 @@
     </footer>
 
     <script>
-        // Smooth reveal animation on scroll
+        // Scroll Reveal
         const observerOptions = { threshold: 0.1 };
-        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -491,9 +501,8 @@
                     entry.target.style.transform = "translateY(0)";
                 }
             });
-        });
+        }, observerOptions);
 
-        // Apply fade-in to all cards
         document.querySelectorAll('.card').forEach(card => {
             card.style.opacity = "0";
             card.style.transform = "translateY(20px)";
@@ -501,39 +510,32 @@
             observer.observe(card);
         });
 
-        // Simple typing effect for Hero Title
-        const text = "Gerald Weaver";
-        const titleElement = document.querySelector('.hero h1');
-        let i = 0;
-        
-        // Clear text initially for effect
-        titleElement.textContent = ""; 
-        
-        function typeWriter() {
-            if (i < text.length) {
-                titleElement.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            } else {
-                // Add blinking cursor
-                titleElement.innerHTML += '<span style="color:var(--accent-primary)">_</span>';
-            }
-        }
-        
-        // Start typing after page load
-        window.onload = typeWriter;
-
-        // CLOCK FUNCTION
+        // Zulu Clock
         function updateTime() {
             const now = new Date();
             const timeString = now.toISOString().split('T')[1].split('.')[0];
             const clockEl = document.getElementById('zulu-clock');
-            if(clockEl) {
-                clockEl.textContent = `ZULU: ${timeString}Z`;
-            }
+            if(clockEl) clockEl.textContent = `ZULU: ${timeString}Z`;
         }
-        setInterval(updateTime, 1000);
-        updateTime();
+        setInterval(updateTime, 1000); updateTime();
+
+        // Scroll Spy Navigation (Highlights active section)
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
