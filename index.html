@@ -243,7 +243,7 @@
             background: rgba(0, 240, 255, 0.1);
         }
 
-        /* --- PROJECTS SECTION IMAGE STYLES --- */
+        /* --- PROJECTS SECTION IMAGE STYLES (FIXED) --- */
         .tech-stack { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
         .tech-tag { 
             font-size: 0.7rem; background: rgba(0, 240, 255, 0.1); 
@@ -251,15 +251,18 @@
             font-family: 'JetBrains Mono';
         }
         .project-img-container {
-            width: 100%; height: 200px; margin-bottom: 20px; overflow: hidden;
+            width: 100%; height: 260px; /* Increased height for better visibility */
+            margin-bottom: 20px; overflow: hidden;
             border: 1px solid var(--border-tech); position: relative;
             background: #000;
+            display: flex; align-items: center; justify-content: center;
         }
         .project-img-container img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.5s ease; opacity: 0.8;
+            width: 100%; height: 100%; 
+            object-fit: contain; /* FIXED: Shows full image without cropping */
+            transition: transform 0.5s ease; opacity: 0.9;
         }
-        .card:hover .project-img-container img { transform: scale(1.05); opacity: 1; }
+        .card:hover .project-img-container img { transform: scale(1.02); opacity: 1; }
 
         /* --- SKILLS --- */
         .skill-container { margin-bottom: 15px; }
@@ -525,7 +528,7 @@
                 <div class="card">
                     <div class="status-led"></div>
                     <div class="project-img-container">
-                        <img src="images/Screenshot 2026-01-26 184057.png" alt="Warehouse Simulation">
+                        <img src="Screenshot 2026-01-26 184057.png" alt="Warehouse Simulation">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">AI Warehouse Optimization</h3>
                     <div class="tech-stack">
@@ -545,7 +548,7 @@
                 <div class="card">
                     <div class="status-led"></div>
                     <div class="project-img-container">
-                        <img src="images/Screenshot 2026-01-26 184214.png" alt="Brick Press CAD">
+                        <img src="Screenshot 2026-01-26 184214.png" alt="Brick Press CAD">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">EMRC Echo Brick Press</h3>
                     <div class="tech-stack">
@@ -565,7 +568,7 @@
                 <div class="card">
                     <div class="status-led"></div>
                     <div class="project-img-container">
-                        <img src="images/Screenshot 2026-01-26 184355.png" alt="Rocketry Website UI">
+                        <img src="Screenshot 2026-01-26 184355.png" alt="Rocketry Website UI">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">Liberty Rocketry Portal</h3>
                     <div class="tech-stack">
@@ -585,7 +588,7 @@
                 <div class="card">
                     <div class="status-led"></div>
                     <div class="project-img-container">
-                        <img src="images/Screenshot 2026-01-26 184301.png" alt="Avionics Telemetry">
+                        <img src="Screenshot 2026-01-26 184301.png" alt="Avionics Telemetry">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">Rocketry Avionics Systems</h3>
                     <div class="tech-stack">
