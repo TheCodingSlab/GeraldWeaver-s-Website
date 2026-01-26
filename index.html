@@ -32,7 +32,15 @@
             line-height: 1.6;
             overflow-x: hidden;
             height: 100vh;
+            /* UPGRADE: Tactical Cursor */
+            cursor: crosshair; 
         }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-secondary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
 
         h1, h2, h3, .mono-font {
             font-family: 'JetBrains Mono', monospace;
@@ -40,33 +48,49 @@
             letter-spacing: 1px;
         }
 
-        a { text-decoration: none; color: var(--accent-primary); transition: 0.3s; }
+        a { text-decoration: none; color: var(--accent-primary); transition: 0.3s; cursor: pointer; }
         a:hover { text-shadow: 0 0 8px var(--accent-primary); }
+
+        /* --- UPGRADE: SYSTEM BOOT SCREEN --- */
+        #boot-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 10000;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'JetBrains Mono', monospace; color: var(--accent-primary);
+            flex-direction: column;
+        }
+        .boot-text { font-size: 1.2rem; margin-bottom: 10px; opacity: 0; animation: fadeIn 0.1s forwards; }
+        .loading-bar-container {
+            width: 300px; height: 4px; background: #333; margin-top: 20px;
+            overflow: hidden; opacity: 0; animation: fadeIn 0.5s 1s forwards;
+        }
+        .loading-bar {
+            width: 0%; height: 100%; background: var(--accent-primary);
+            animation: load 2.5s 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes load { to { width: 100%; } }
+        @keyframes fadeOutScreen { to { opacity: 0; pointer-events: none; } }
 
         /* --- FX 1: STARFIELD BACKGROUND --- */
         .stars {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background: #000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
-            animation: move-stars 200s linear infinite;
-            opacity: 0.6;
+            animation: move-stars 200s linear infinite; opacity: 0.6;
         }
         @keyframes move-stars { from {background-position:0 0;} to {background-position:-10000px 5000px;} }
 
         /* --- FX 2: RADAR GRID --- */
         .radar-grid {
-            position: fixed;
-            top: 55%; left: 50%;
-            width: 200vw; height: 200vw;
+            position: fixed; top: 55%; left: 50%; width: 200vw; height: 200vw;
             background-image: 
                 linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
             background-size: 100px 100px;
             transform: translate(-50%, -50%) perspective(500px) rotateX(60deg);
             animation: radar-spin 60s linear infinite;
-            z-index: -1;
-            pointer-events: none;
+            z-index: -1; pointer-events: none;
             mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%);
         }
         @keyframes radar-spin {
@@ -76,15 +100,12 @@
 
         /* --- FX 3: SCANLINES & VIGNETTE --- */
         .scanlines {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
-            background-size: 100% 4px;
-            pointer-events: none; z-index: 9999; opacity: 0.3;
+            background-size: 100% 4px; pointer-events: none; z-index: 9999; opacity: 0.3;
         }
         .vignette {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,10,20,0.8) 100%);
             pointer-events: none; z-index: 9998;
         }
@@ -92,10 +113,8 @@
         /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; width: 100%;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border-bottom: var(--border-tech);
-            z-index: 1000; padding: 15px 0;
+            background: var(--glass); backdrop-filter: blur(10px);
+            border-bottom: var(--border-tech); z-index: 1000; padding: 15px 0;
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
@@ -103,7 +122,6 @@
         .nav-links { list-style: none; display: flex; gap: 30px; }
         .nav-links a { font-size: 0.85rem; color: var(--text-dim); position: relative; }
         
-        /* Active State Marker */
         .nav-links a.active, .nav-links a:hover { color: var(--accent-primary); }
         .nav-links a.active::after {
             content: ''; position: absolute; bottom: -20px; left: 0;
@@ -128,7 +146,7 @@
             border-bottom: 1px solid rgba(0,240,255,0.1); display: inline-block; padding-bottom: 5px;
         }
 
-        /* --- FX 4: GLITCH TITLE --- */
+        /* GLITCH TITLE */
         .glitch-wrapper { position: relative; display: inline-block; }
         .hero h1 {
             font-size: 4rem; line-height: 1.1; margin-bottom: 20px;
@@ -178,7 +196,6 @@
             border: 1px solid rgba(0, 240, 255, 0.1); transition: 0.3s; overflow: hidden;
         }
         
-        /* FX 5: STATUS LED */
         .status-led {
             position: absolute; top: 15px; right: 15px;
             width: 8px; height: 8px; background: #00ff00;
@@ -208,7 +225,6 @@
             position: relative; padding-left: 25px; margin-bottom: 10px; 
             font-size: 0.95rem; color: var(--text-dim); 
         }
-        /* FX 6: HEXAGON BULLETS */
         .card li::before {
             content: '⬢'; position: absolute; left: 0; top: 2px;
             color: var(--accent-primary); font-size: 0.8rem;
@@ -245,6 +261,15 @@
     </style>
 </head>
 <body>
+
+    <div id="boot-screen">
+        <div class="boot-text">INITIALIZING SYSTEMS...</div>
+        <div class="boot-text" style="animation-delay: 0.5s">ESTABLISHING SECURE LINK...</div>
+        <div class="boot-text" style="animation-delay: 1.0s">LOADING MISSION PROFILE...</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
 
     <div class="stars"></div>
     <div class="scanlines"></div>
@@ -311,10 +336,16 @@
                     <h3 style="margin-bottom: 20px;">Mission Statement</h3>
                     <p style="color: var(--text-dim); margin-bottom: 20px;">
                         Engineering student focused on the intersection of <strong>National Security</strong>, <strong>Operational Efficiency</strong>, and <strong>Aerospace Innovation</strong>. 
-                        Currently serving as Assistant Project Manager for Liberty Rocketry, overseeing 60+ engineers to optimize workflows and ensure mission success.
                     </p>
+                    
+                    <div style="background: rgba(0, 240, 255, 0.05); border-left: 3px solid var(--accent-primary); padding: 15px; margin: 20px 0;">
+                        <p style="font-size: 0.95rem; color: var(--text-main);">
+                            "I strive to do everything for the <strong>glory of God</strong> and seek to honor Him through excellence, integrity, and stewardship in every project I undertake."
+                        </p>
+                    </div>
+
                     <p style="color: var(--text-dim);">
-                        Targeting opportunities in Logistics Engineering, Operations Research, and Avionics within the Defense sector.
+                        Currently serving as Assistant Project Manager for Liberty Rocketry, overseeing 60+ engineers. Targeting opportunities in Logistics Engineering and Avionics within the Defense sector.
                     </p>
                 </div>
             </div>
@@ -492,6 +523,14 @@
     </footer>
 
     <script>
+        // REMOVE BOOT SCREEN AFTER 3 SECONDS
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const bootScreen = document.getElementById('boot-screen');
+                bootScreen.style.animation = "fadeOutScreen 0.5s forwards";
+            }, 3500); // Wait for loading bar
+        });
+
         // Scroll Reveal
         const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
@@ -519,7 +558,7 @@
         }
         setInterval(updateTime, 1000); updateTime();
 
-        // Scroll Spy Navigation (Highlights active section)
+        // Scroll Spy Navigation
         window.addEventListener('scroll', () => {
             let current = '';
             const sections = document.querySelectorAll('section');
