@@ -32,10 +32,9 @@
             line-height: 1.6;
             overflow-x: hidden;
             height: 100vh;
-            cursor: crosshair; /* Tactical Cursor */
+            cursor: crosshair; 
         }
 
-        /* Scrollbar Styling */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-deep); }
         ::-webkit-scrollbar-thumb { background: var(--accent-secondary); border-radius: 4px; }
@@ -186,6 +185,9 @@
         .section-spacer { padding: 100px 0; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        /* UPGRADE: Single Column for Projects to make them BIGGER */
+        .project-stack { display: grid; grid-template-columns: 1fr; gap: 60px; max-width: 900px; margin: 0 auto; }
 
         .card {
             background: var(--bg-panel); padding: 30px; position: relative;
@@ -243,7 +245,7 @@
             background: rgba(0, 240, 255, 0.1);
         }
 
-        /* --- PROJECTS SECTION IMAGE STYLES (FIXED) --- */
+        /* --- UPGRADE: PROJECTS IMAGE STYLES (BIGGER) --- */
         .tech-stack { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
         .tech-tag { 
             font-size: 0.7rem; background: rgba(0, 240, 255, 0.1); 
@@ -251,8 +253,9 @@
             font-family: 'JetBrains Mono';
         }
         .project-img-container {
-            width: 100%; height: 260px; /* Increased height for better visibility */
-            margin-bottom: 20px; overflow: hidden;
+            width: 100%; 
+            height: 450px; /* INCREASED HEIGHT */
+            margin-bottom: 25px; overflow: hidden;
             border: 1px solid var(--border-tech); position: relative;
             background: #000;
             display: flex; align-items: center; justify-content: center;
@@ -292,6 +295,7 @@
             .nav-links { display: none; }
             .radar-grid { display: none; }
             .course-grid { grid-template-columns: 1fr; }
+            .project-img-container { height: 250px; }
         }
     </style>
 </head>
@@ -523,7 +527,7 @@
                 <span style="color:var(--accent-primary)">03.</span> Operations (Projects)
             </h2>
             
-            <div class="grid-2">
+            <div class="project-stack">
                 
                 <div class="card">
                     <div class="status-led"></div>
