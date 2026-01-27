@@ -187,7 +187,7 @@
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         
-        /* UPGRADE: Single Column Stack for Big Projects */
+        /* Single Column Stack for Big Projects */
         .project-stack { display: grid; grid-template-columns: 1fr; gap: 80px; max-width: 900px; margin: 0 auto; }
 
         .card {
@@ -246,7 +246,7 @@
             background: rgba(0, 240, 255, 0.1);
         }
 
-        /* --- UPGRADE: PROJECT IMAGES (BIGGER & CONTAINED) --- */
+        /* --- PROJECT IMAGES --- */
         .tech-stack { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
         .tech-tag { 
             font-size: 0.7rem; background: rgba(0, 240, 255, 0.1); 
@@ -258,12 +258,12 @@
             height: 500px; /* HUGE VIEWPORT */
             margin-bottom: 25px; overflow: hidden;
             border: 1px solid var(--border-tech); position: relative;
-            background: #050b14; /* Match background so no borders if image is different aspect ratio */
+            background: #050b14;
             display: flex; align-items: center; justify-content: center;
         }
         .project-img-container img {
             width: 100%; height: 100%; 
-            object-fit: contain; /* CRITICAL FIX: Ensures full image is visible, no cropping */
+            object-fit: contain;
             transition: transform 0.5s ease; opacity: 0.9;
         }
         .card:hover .project-img-container img { transform: scale(1.02); opacity: 1; }
@@ -296,7 +296,7 @@
             .nav-links { display: none; }
             .radar-grid { display: none; }
             .course-grid { grid-template-columns: 1fr; }
-            .project-img-container { height: 300px; } /* Smaller on mobile but still big */
+            .project-img-container { height: 300px; } 
         }
     </style>
 </head>
@@ -321,6 +321,7 @@
             <div class="logo">GW <span style="color:var(--text-dim)">//</span> SYSTEMS_ENG</div>
             <ul class="nav-links">
                 <li><a href="#about" class="nav-link">STATUS</a></li>
+                <li><a href="#leadership" class="nav-link">LEADERSHIP</a></li>
                 <li><a href="#experience" class="nav-link">LOGS</a></li>
                 <li><a href="#projects" class="nav-link">OPERATIONS</a></li>
                 <li><a href="#skills" class="nav-link">CAPABILITIES</a></li>
@@ -415,10 +416,55 @@
         </div>
     </section>
 
+    <section id="leadership" class="section-spacer" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                <span style="color:var(--accent-primary)">02.</span> Leadership & Ethos
+            </h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="status-led"></div>
+                    <h3 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Command Philosophy</h3>
+                    <p style="color: var(--text-dim); margin-bottom: 20px;">
+                        "Leadership is not just about giving orders; it's about serving the team."
+                    </p>
+                    <p style="color: var(--text-main); margin-bottom: 15px;">
+                        My goal is to lead with integrity while remaining an active, hands-on team player. I bridge the gap between high-level strategy and technical execution, ensuring that while I provide direction, I am also in the trenches working alongside my team to drive mission success.
+                    </p>
+                    <div style="background: rgba(0, 240, 255, 0.05); border-left: 3px solid var(--accent-primary); padding: 15px;">
+                        <span class="mono-font" style="font-size: 0.8rem; color: var(--accent-primary);">CORE DIRECTIVE (SCRIPTURE)</span>
+                        <p style="font-style: italic; margin-top: 5px; color: var(--text-main);">
+                            "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters."
+                            <br><span style="color: var(--text-dim); font-size: 0.9rem;">— Colossians 3:23</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="status-led"></div>
+                    <h3 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Leadership Credentials</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: #fff;">Eagle Scout</strong> (Boy Scouts of America)<br>
+                            <span style="font-size: 0.85rem; color: var(--text-dim);">The highest achievement or rank attainable in the Scouts BSA program. Demonstrates long-term commitment, leadership, and service.</span>
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: #fff;">Converge Leadership Program</strong> (Liberty University)<br>
+                            <span style="font-size: 0.85rem; color: var(--text-dim);">Selected for rigorous leadership development training, focusing on ethical decision-making and team dynamics.</span>
+                        </li>
+                        <li>
+                            <strong style="color: #fff;">Project Leader</strong> (EMRC)<br>
+                            <span style="font-size: 0.85rem; color: var(--text-dim);">Led humanitarian engineering research projects, coordinating teams to solve real-world problems.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="experience" class="section-spacer">
         <div class="container">
             <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
-                <span style="color:var(--accent-primary)">02.</span> Mission Logs
+                <span style="color:var(--accent-primary)">03.</span> Mission Logs
             </h2>
             
             <div class="grid-2">
@@ -525,7 +571,7 @@
     <section id="projects" class="section-spacer" style="background: rgba(255,255,255,0.02);">
         <div class="container">
             <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
-                <span style="color:var(--accent-primary)">03.</span> Operations (Projects)
+                <span style="color:var(--accent-primary)">04.</span> Operations (Projects)
             </h2>
             
             <div class="project-stack">
@@ -617,7 +663,7 @@
     <section id="skills" class="section-spacer">
         <div class="container">
             <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
-                <span style="color:var(--accent-primary)">04.</span> Technical Capabilities
+                <span style="color:var(--accent-primary)">05.</span> Technical Capabilities
             </h2>
             <div class="grid-3">
                 <div class="card">
@@ -671,7 +717,7 @@
     <section id="contact" class="section-spacer">
         <div class="container">
             <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
-                <span style="color:var(--accent-primary)">05.</span> Comm Link
+                <span style="color:var(--accent-primary)">06.</span> Comm Link
             </h2>
             <div class="contact-grid">
                 <div>
