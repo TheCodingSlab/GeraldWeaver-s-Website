@@ -32,9 +32,10 @@
             line-height: 1.6;
             overflow-x: hidden;
             height: 100vh;
-            cursor: crosshair; 
+            cursor: crosshair; /* Tactical Cursor */
         }
 
+        /* Scrollbar Styling */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-deep); }
         ::-webkit-scrollbar-thumb { background: var(--accent-secondary); border-radius: 4px; }
@@ -186,8 +187,8 @@
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         
-        /* UPGRADE: Single Column for Projects to make them BIGGER */
-        .project-stack { display: grid; grid-template-columns: 1fr; gap: 60px; max-width: 900px; margin: 0 auto; }
+        /* UPGRADE: Single Column Stack for Big Projects */
+        .project-stack { display: grid; grid-template-columns: 1fr; gap: 80px; max-width: 900px; margin: 0 auto; }
 
         .card {
             background: var(--bg-panel); padding: 30px; position: relative;
@@ -245,7 +246,7 @@
             background: rgba(0, 240, 255, 0.1);
         }
 
-        /* --- UPGRADE: PROJECTS IMAGE STYLES (BIGGER) --- */
+        /* --- UPGRADE: PROJECT IMAGES (BIGGER & CONTAINED) --- */
         .tech-stack { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
         .tech-tag { 
             font-size: 0.7rem; background: rgba(0, 240, 255, 0.1); 
@@ -254,15 +255,15 @@
         }
         .project-img-container {
             width: 100%; 
-            height: 450px; /* INCREASED HEIGHT */
+            height: 500px; /* HUGE VIEWPORT */
             margin-bottom: 25px; overflow: hidden;
             border: 1px solid var(--border-tech); position: relative;
-            background: #000;
+            background: #050b14; /* Match background so no borders if image is different aspect ratio */
             display: flex; align-items: center; justify-content: center;
         }
         .project-img-container img {
             width: 100%; height: 100%; 
-            object-fit: contain; /* FIXED: Shows full image without cropping */
+            object-fit: contain; /* CRITICAL FIX: Ensures full image is visible, no cropping */
             transition: transform 0.5s ease; opacity: 0.9;
         }
         .card:hover .project-img-container img { transform: scale(1.02); opacity: 1; }
@@ -295,7 +296,7 @@
             .nav-links { display: none; }
             .radar-grid { display: none; }
             .course-grid { grid-template-columns: 1fr; }
-            .project-img-container { height: 250px; }
+            .project-img-container { height: 300px; } /* Smaller on mobile but still big */
         }
     </style>
 </head>
@@ -532,7 +533,7 @@
                 <div class="card">
                     <div class="status-led"></div>
                     <div class="project-img-container">
-                        <img src="Screenshot 2026-01-26 184057.png" alt="Warehouse Simulation">
+                        <img src="images/Screenshot 2026-01-26 184057.png" alt="Warehouse Simulation">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">AI Warehouse Optimization</h3>
                     <div class="tech-stack">
@@ -552,7 +553,7 @@
                 <div class="card">
                     <div class="status-led"></div>
                     <div class="project-img-container">
-                        <img src="Screenshot 2026-01-26 184214.png" alt="Brick Press CAD">
+                        <img src="images/Screenshot 2026-01-26 184214.png" alt="Brick Press CAD">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">EMRC Echo Brick Press</h3>
                     <div class="tech-stack">
@@ -572,7 +573,7 @@
                 <div class="card">
                     <div class="status-led"></div>
                     <div class="project-img-container">
-                        <img src="Screenshot 2026-01-26 184355.png" alt="Rocketry Website UI">
+                        <img src="images/Screenshot 2026-01-26 184355.png" alt="Rocketry Website UI">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">Liberty Rocketry Portal</h3>
                     <div class="tech-stack">
@@ -592,7 +593,7 @@
                 <div class="card">
                     <div class="status-led"></div>
                     <div class="project-img-container">
-                        <img src="Screenshot 2026-01-26 184301.png" alt="Avionics Telemetry">
+                        <img src="images/Screenshot 2026-01-26 184301.png" alt="Avionics Telemetry">
                     </div>
                     <h3 class="mono-font" style="color: var(--accent-primary);">Rocketry Avionics Systems</h3>
                     <div class="tech-stack">
