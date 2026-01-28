@@ -144,13 +144,13 @@
         .radar-grid {
             position: fixed; top: 55%; left: 50%; width: 200vw; height: 200vw;
             background-image: 
-                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(0, 240, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.15) 1px, transparent 1px);
             background-size: 100px 100px;
             transform: translate(-50%, -50%) perspective(500px) rotateX(60deg);
             animation: radar-spin 60s linear infinite;
             z-index: -1; pointer-events: none;
-            mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%);
+            mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
         }
         @keyframes radar-spin {
             from { transform: translate(-50%, -50%) perspective(500px) rotateX(60deg) rotateZ(0deg); }
@@ -894,15 +894,24 @@
         window.addEventListener('scroll', () => {
             let current = '';
             const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollY >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
+            const scrollPosition = window.scrollY + 300; // Trigger point offset
+
+            // 1. Check if at bottom
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
+                current = 'contact';
+            } else {
+                // 2. Normal scroll spy
+                sections.forEach(section => {
+                    if (scrollPosition >= section.offsetTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+            }
+
+            // 3. Update nav
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
+                if (link.getAttribute('href').includes(current) && current !== '') {
                     link.classList.add('active');
                 }
             });
