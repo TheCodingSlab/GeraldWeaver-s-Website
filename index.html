@@ -409,10 +409,10 @@
             .nav-links { display: none; }
             .radar-grid { display: none; }
             .course-grid { grid-template-columns: 1fr; }
-            .project-img-container { height: 300px; } 
             .tactical-table, .tactical-table tbody, .tactical-table tr, .tactical-table td { display: block; width: 100%; }
             .tactical-table tr { margin-bottom: 15px; border: 1px solid rgba(0,240,255,0.1); }
             .tactical-table thead { display: none; }
+            .project-img-container { height: 300px; } 
         }
     </style>
 </head>
@@ -1017,22 +1017,16 @@
             const sections = document.querySelectorAll('section');
             const scrollPosition = window.scrollY + 300; // Trigger point offset
 
-            // 1. Check if at bottom
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
-                current = 'contact';
-            } else {
-                // 2. Normal scroll spy
-                sections.forEach(section => {
-                    if (scrollPosition >= section.offsetTop) {
-                        current = section.getAttribute('id');
-                    }
-                });
-            }
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollPosition >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
 
-            // 3. Update nav
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href').includes(current) && current !== '') {
+                if (link.getAttribute('href').includes(current)) {
                     link.classList.add('active');
                 }
             });
