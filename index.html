@@ -258,12 +258,20 @@
             display: flex; flex-direction: column;
         }
         
+        /* STATUS LED */
         .status-led {
             position: absolute; top: 15px; right: 15px;
             width: 8px; height: 8px; background: #00ff00;
             border-radius: 50%; box-shadow: 0 0 5px #00ff00;
             animation: blink 2s infinite;
         }
+        
+        /* INACTIVE / OFFLINE LED */
+        .status-led.offline {
+            background: var(--alert-red);
+            box-shadow: 0 0 5px var(--alert-red);
+        }
+        
         @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.3;} 100% {opacity: 1;} }
 
         .card:hover { transform: translateY(-5px); background: rgba(0, 240, 255, 0.04); border-color: var(--accent-primary); }
@@ -636,7 +644,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="status-led"></div>
+                    <div class="status-led offline"></div>
                     <div class="card-header">
                         <span class="role">Software & Data Analyst Intern</span>
                         <span class="date">Jun 2025 - Aug 2025</span>
@@ -650,7 +658,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="status-led"></div>
+                    <div class="status-led offline"></div>
                     <div class="card-header">
                         <span class="role">Admin & Ops Coordinator</span>
                         <span class="date">May 2025 - Nov 2025</span>
@@ -677,7 +685,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="status-led"></div>
+                    <div class="status-led offline"></div>
                     <div class="card-header">
                         <span class="role">Houseman Intern</span>
                         <span class="date">Jun 2024 - Sep 2024</span>
@@ -694,93 +702,93 @@
 
     <section id="projects" class="section-spacer" style="background: rgba(255,255,255,0.02);">
         <div class="container">
-            <h2 class="mono-font" style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+            <h2 class="mono-font" style="margin-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
                 <span style="color:var(--accent-primary)">04.</span> Operations (Projects)
             </h2>
             
-            <div class="project-stack">
-                
-                <div class="card">
-                    <div class="status-led"></div>
-                    <div class="project-img-container">
-                        <img src="images/Screenshot 2026-01-26 184057.png" alt="Warehouse Simulation">
-                    </div>
-                    <h3 class="mono-font" style="color: var(--accent-primary);">AI Warehouse Optimization</h3>
+            <article class="project-card">
+                <div class="corner-bracket tl"></div><div class="corner-bracket br"></div>
+                <div class="image-side">
+                    <div class="placeholder-box"><i class="fas fa-cubes fa-2x"></i><br><br>[ UPLOAD WAREHOUSE_SIM.PNG ]</div>
+                </div>
+                <div class="content-side">
+                    <div class="status-led offline" style="top:20px; right:20px;"></div>
+                    <span class="project-id mono-font">ID: LOGISTICS-01</span>
+                    <h2 class="project-title">AI Warehouse Optimization</h2>
                     <div class="tech-stack">
-                        <span class="tech-tag">PYTHON</span>
-                        <span class="tech-tag">NUMPY</span>
-                        <span class="tech-tag">ALGORITHMS</span>
+                        <span class="tech-tag">PYTHON</span><span class="tech-tag">NUMPY</span><span class="tech-tag">ALGORITHMS</span>
                     </div>
-                    <p style="font-size:0.9rem; color:var(--text-dim); margin-bottom:15px;">
-                        Built a Python simulation to optimize warehouse routes in a 10x10 factory layout.
-                    </p>
-                    <ul>
+                    <div class="description">Developed a Python simulation to optimize warehouse routes in a 10x10 factory layout.</div>
+                    <ul class="bullet-list">
                         <li>Achieved <strong>26.47% reduction</strong> in travel distance using greedy algorithms.</li>
                         <li>Modeled realistic constraints including cross-shaped aisles and randomized inventory.</li>
+                        <li>Future Phase: Integrating Genetic Algorithms (GA) for multi-picker swarm optimization.</li>
                     </ul>
                 </div>
+            </article>
 
-                <div class="card">
-                    <div class="status-led"></div>
-                    <div class="project-img-container">
-                        <img src="images/Screenshot 2026-01-26 184214.png" alt="Brick Press CAD">
-                    </div>
-                    <h3 class="mono-font" style="color: var(--accent-primary);">EMRC Echo Brick Press</h3>
+            <article class="project-card">
+                <div class="corner-bracket tl"></div><div class="corner-bracket br"></div>
+                <div class="image-side">
+                    <div class="placeholder-box"><i class="fas fa-laptop-code fa-2x"></i><br><br>[ UPLOAD WEBSITE_UI.JPG ]</div>
+                </div>
+                <div class="content-side">
+                    <div class="status-led" style="top:20px; right:20px;"></div>
+                    <span class="project-id mono-font">ID: WEB-DEV-OPS</span>
+                    <h2 class="project-title">Liberty Rocketry Portal</h2>
                     <div class="tech-stack">
-                        <span class="tech-tag">SOLIDWORKS</span>
-                        <span class="tech-tag">MECHANICAL</span>
-                        <span class="tech-tag">PROTOTYPING</span>
+                        <span class="tech-tag">HTML5/CSS3</span><span class="tech-tag">UI/UX</span><span class="tech-tag">RESPONSIVE</span>
                     </div>
-                    <p style="font-size:0.9rem; color:var(--text-dim); margin-bottom:15px;">
-                        Engineered a metal brick press for West Africa to enable hand-made compressed earth blocks.
-                    </p>
-                    <ul>
+                    <div class="description">Designed and deployed the official team website to support recruitment and sponsorship.</div>
+                    <ul class="bullet-list">
+                        <li>Implemented mobile-first responsive grids, fixing legacy navigation issues.</li>
+                        <li>Created custom fade-in animations and full-viewport hero sections.</li>
+                        <li>Directly supports team growth by hosting sponsorship packets and recruitment forms.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="corner-bracket tl"></div><div class="corner-bracket br"></div>
+                <div class="image-side">
+                    <div class="placeholder-box"><i class="fas fa-cogs fa-2x"></i><br><br>[ UPLOAD CAD_MODEL.PNG ]</div>
+                </div>
+                <div class="content-side">
+                    <div class="status-led offline" style="top:20px; right:20px;"></div>
+                    <span class="project-id mono-font">ID: HUMANITARIAN-ENG</span>
+                    <h2 class="project-title">EMRC Echo Brick Press</h2>
+                    <div class="tech-stack">
+                        <span class="tech-tag">SOLIDWORKS</span><span class="tech-tag">MECHANICAL</span><span class="tech-tag">PROTOTYPING</span>
+                    </div>
+                    <div class="description">Engineered a metal brick press for West Africa to replace kiln-fired bricks with compressed earth blocks.</div>
+                    <ul class="bullet-list">
                         <li>Modeled compression forces and moment of inertia in SolidWorks.</li>
-                        <li>Reduced drying time and optimized soil-straw composition for "rock-like" integrity.</li>
+                        <li>Optimized arm length for human-powered operation without hydraulic assistance.</li>
+                        <li>Reduced drying time significantly while maintaining "rock-like" structural integrity.</li>
                     </ul>
                 </div>
+            </article>
 
-                <div class="card">
-                    <div class="status-led"></div>
-                    <div class="project-img-container">
-                        <img src="images/Screenshot 2026-01-26 184355.png" alt="Rocketry Website UI">
-                    </div>
-                    <h3 class="mono-font" style="color: var(--accent-primary);">Liberty Rocketry Portal</h3>
+            <article class="project-card">
+                <div class="corner-bracket tl"></div><div class="corner-bracket br"></div>
+                <div class="image-side">
+                    <div class="placeholder-box"><i class="fas fa-satellite-dish fa-2x"></i><br><br>[ UPLOAD TELEMETRY_GUI.PNG ]</div>
+                </div>
+                <div class="content-side">
+                    <div class="status-led" style="top:20px; right:20px;"></div>
+                    <span class="project-id mono-font">ID: AEROSPACE-SYS</span>
+                    <h2 class="project-title">Rocketry Avionics Systems</h2>
                     <div class="tech-stack">
-                        <span class="tech-tag">HTML/CSS</span>
-                        <span class="tech-tag">UI/UX</span>
-                        <span class="tech-tag">RESPONSIVE</span>
+                        <span class="tech-tag">C++ / PYTHON</span><span class="tech-tag">TELEMETRY</span><span class="tech-tag">HARDWARE</span>
                     </div>
-                    <p style="font-size:0.9rem; color:var(--text-dim); margin-bottom:15px;">
-                        Designed and deployed the official team website to support recruitment and sponsorship outreach.
-                    </p>
-                    <ul>
-                        <li>Implemented mobile-first responsive grids and custom dark-mode aesthetics.</li>
-                        <li>Created full-viewport hero sections and smooth fade-in animations.</li>
+                    <div class="description">Lead avionics development for high-powered rocketry, focusing on ground station software.</div>
+                    <ul class="bullet-list">
+                        <li>Developed serial parsers using map/dictionary structures to decode live telemetry.</li>
+                        <li>Engineered VTX systems, calculating optimal frequencies and lens ratios.</li>
+                        <li>Designed the Ground Station GUI for real-time mission monitoring and data capture.</li>
                     </ul>
                 </div>
-
-                <div class="card">
-                    <div class="status-led"></div>
-                    <div class="project-img-container">
-                        <img src="images/Screenshot 2026-01-26 184301.png" alt="Avionics Telemetry">
-                    </div>
-                    <h3 class="mono-font" style="color: var(--accent-primary);">Rocketry Avionics Systems</h3>
-                    <div class="tech-stack">
-                        <span class="tech-tag">C++</span>
-                        <span class="tech-tag">PYTHON</span>
-                        <span class="tech-tag">TELEMETRY</span>
-                    </div>
-                    <p style="font-size:0.9rem; color:var(--text-dim); margin-bottom:15px;">
-                        Led software development for ground station telemetry and live data transmission.
-                    </p>
-                    <ul>
-                        <li>Developed serial parsers to decode live telemetry streams.</li>
-                        <li>Designed Ground Station GUI for real-time mission monitoring.</li>
-                    </ul>
-                </div>
-
-            </div>
+            </article>
         </div>
     </section>
 
@@ -858,45 +866,22 @@
                 <div class="card">
                     <div class="status-led"></div>
                     <h3 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Development</h3>
-                    <div class="skill-container">
-                        <div class="skill-header"><span>Python / CircuitPython</span> <span>90%</span></div>
-                        <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
-                    </div>
-                    <div class="skill-container">
-                        <div class="skill-header"><span>C++ / C#</span> <span>85%</span></div>
-                        <div class="progress-bar"><div class="progress" style="width: 85%"></div></div>
-                    </div>
-                    <div class="skill-container">
-                        <div class="skill-header"><span>SQL / Database</span> <span>80%</span></div>
-                        <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
-                    </div>
+                    <div class="skill-container"><div class="skill-header"><span>Python / CircuitPython</span> <span>90%</span></div><div class="progress-bar"><div class="progress" style="width: 90%"></div></div></div>
+                    <div class="skill-container"><div class="skill-header"><span>C++ / C#</span> <span>85%</span></div><div class="progress-bar"><div class="progress" style="width: 85%"></div></div></div>
+                    <div class="skill-container"><div class="skill-header"><span>SQL / Database</span> <span>80%</span></div><div class="progress-bar"><div class="progress" style="width: 80%"></div></div></div>
                 </div>
-
                 <div class="card">
                     <div class="status-led"></div>
                     <h3 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Engineering</h3>
-                    <div class="skill-container">
-                        <div class="skill-header"><span>System & Facilities Design</span> <span>85%</span></div>
-                        <div class="progress-bar"><div class="progress" style="width: 85%"></div></div>
-                    </div>
-                    <div class="skill-container">
-                        <div class="skill-header"><span>Lean Six Sigma (DMAIC)</span> <span>80%</span></div>
-                        <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
-                    </div>
-                    <div class="skill-container">
-                        <div class="skill-header"><span>OnShape 3D Modeling</span> <span>75%</span></div>
-                        <div class="progress-bar"><div class="progress" style="width: 75%"></div></div>
-                    </div>
+                    <div class="skill-container"><div class="skill-header"><span>System & Facilities Design</span> <span>85%</span></div><div class="progress-bar"><div class="progress" style="width: 85%"></div></div></div>
+                    <div class="skill-container"><div class="skill-header"><span>Lean Six Sigma (DMAIC)</span> <span>80%</span></div><div class="progress-bar"><div class="progress" style="width: 80%"></div></div></div>
+                    <div class="skill-container"><div class="skill-header"><span>OnShape 3D Modeling</span> <span>75%</span></div><div class="progress-bar"><div class="progress" style="width: 75%"></div></div></div>
                 </div>
-
                 <div class="card">
                     <div class="status-led"></div>
                     <h3 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Tools</h3>
                     <ul style="margin-top: 10px;">
-                        <li>MATLAB</li>
-                        <li>Microsoft Power Apps</li>
-                        <li>Linux Environment</li>
-                        <li>Excel (Advanced/VBA)</li>
+                        <li>MATLAB</li><li>Microsoft Power Apps</li><li>Linux Environment</li><li>Excel (Advanced/VBA)</li>
                     </ul>
                 </div>
             </div>
@@ -910,30 +895,10 @@
             </h2>
             <div class="contact-grid">
                 <div>
-                    <p style="margin-bottom: 30px; color: var(--text-dim);">
-                        Ready to deploy skills in logistics optimization, avionics software, and systems engineering for national defense initiatives.
-                    </p>
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div>
-                            <div style="font-size: 0.8rem; color: var(--text-dim);">Email Secure Line</div>
-                            <a href="mailto:gaweaver3@liberty.edu">gaweaver3@liberty.edu</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
-                        <div>
-                            <div style="font-size: 0.8rem; color: var(--text-dim);">Phone</div>
-                            <span>443-206-6200</span>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
-                        <div>
-                            <div style="font-size: 0.8rem; color: var(--text-dim);">Network</div>
-                            <a href="https://www.linkedin.com/in/geraldaweaver" target="_blank">linkedin.com/in/geraldaweaver</a>
-                        </div>
-                    </div>
+                    <p style="margin-bottom: 30px; color: var(--text-dim);">Ready to deploy skills in logistics optimization, avionics software, and systems engineering.</p>
+                    <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div><div style="font-size: 0.8rem; color: var(--text-dim);">Email Secure Line</div><a href="mailto:gaweaver3@liberty.edu">gaweaver3@liberty.edu</a></div></div>
+                    <div class="contact-item"><div class="contact-icon"><i class="fas fa-phone"></i></div><div><div style="font-size: 0.8rem; color: var(--text-dim);">Phone</div><span>443-206-6200</span></div></div>
+                    <div class="contact-item"><div class="contact-icon"><i class="fab fa-linkedin-in"></i></div><div><div style="font-size: 0.8rem; color: var(--text-dim);">Network</div><a href="https://www.linkedin.com/in/geraldaweaver" target="_blank">linkedin.com/in/geraldaweaver</a></div></div>
                 </div>
                 <div>
                     <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
@@ -948,87 +913,48 @@
     </section>
 
     <footer style="text-align: center; padding: 40px 0; border-top: var(--border-tech); margin-top: 40px; position: relative; z-index: 10;">
-        <p class="mono-font" style="font-size: 0.9rem; color: var(--text-dim);">
-            SYSTEM STATUS: ONLINE <span style="color:var(--accent-primary)">●</span> | © 2026 GERALD WEAVER
-        </p>
+        <p class="mono-font" style="font-size: 0.9rem; color: var(--text-dim);">SYSTEM STATUS: ONLINE <span style="color:var(--accent-primary)">●</span> | © 2026 GERALD WEAVER</p>
         <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.5;">SOLI DEO GLORIA</p>
     </footer>
 
     <script>
-        // Custom Cursor Logic
+        window.addEventListener('load', () => { setTimeout(() => { document.getElementById('boot-screen').style.animation = "fadeOutScreen 0.5s forwards"; }, 3500); });
+        
         const cursorDot = document.getElementById("cursor-dot");
         const cursorRing = document.getElementById("cursor-ring");
-
         document.addEventListener("mousemove", (e) => {
-            // Update dot instantly
-            cursorDot.style.left = `${e.clientX}px`;
-            cursorDot.style.top = `${e.clientY}px`;
-            
-            // Update ring with slight delay via CSS transition
-            cursorRing.style.left = `${e.clientX}px`;
-            cursorRing.style.top = `${e.clientY}px`;
+            cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
+            cursorRing.style.left = `${e.clientX}px`; cursorRing.style.top = `${e.clientY}px`;
         });
-
-        // Add hover effect for links and buttons
-        const hoverElements = document.querySelectorAll("a, button, .card, .btn");
-        hoverElements.forEach(el => {
+        document.querySelectorAll("a, button, .card, .btn").forEach(el => {
             el.addEventListener("mouseenter", () => document.body.classList.add("hovering"));
             el.addEventListener("mouseleave", () => document.body.classList.remove("hovering"));
         });
 
-        // Remove Boot Screen
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const bootScreen = document.getElementById('boot-screen');
-                bootScreen.style.animation = "fadeOutScreen 0.5s forwards";
-            }, 3500); 
-        });
-
-        // Scroll Reveal
-        const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.card').forEach(card => {
-            card.style.opacity = "0";
-            card.style.transform = "translateY(20px)";
-            card.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
-            observer.observe(card);
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = "1"; entry.target.style.transform = "translateY(0)"; } });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.card, .project-card').forEach(el => {
+            el.style.opacity = "0"; el.style.transform = "translateY(20px)"; el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+            observer.observe(el);
         });
 
-        // Zulu Clock
         function updateTime() {
-            const now = new Date();
-            const timeString = now.toISOString().split('T')[1].split('.')[0];
-            const clockEl = document.getElementById('zulu-clock');
-            if(clockEl) clockEl.textContent = `ZULU: ${timeString}Z`;
+            const now = new Date(); const timeString = now.toISOString().split('T')[1].split('.')[0];
+            const clockEl = document.getElementById('zulu-clock'); if(clockEl) clockEl.textContent = `ZULU: ${timeString}Z`;
         }
         setInterval(updateTime, 1000); updateTime();
 
-        // Scroll Spy Navigation
         window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('section');
-            const scrollPosition = window.scrollY + 300; // Trigger point offset
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollPosition >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
+            let current = ''; const sections = document.querySelectorAll('section');
+            const scrollPosition = window.scrollY + 300; 
+            
+            sections.forEach(section => { if (scrollPosition >= section.offsetTop) { current = section.getAttribute('id'); } });
+            
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
+                if (link.getAttribute('href').includes(current) && current !== '') { link.classList.add('active'); }
             });
         });
     </script>
