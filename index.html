@@ -32,7 +32,7 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
-            height: 100vh;
+            min-height: 100vh;
             cursor: none; /* Hide default cursor */
         }
 
@@ -131,15 +131,19 @@
 
         @keyframes fadeIn { to { opacity: 1; } }
         @keyframes load { to { width: 100%; } }
-        @keyframes fadeOutScreen { to { opacity: 0; pointer-events: none; } }
+        @keyframes fadeOutScreen { to { opacity: 0; pointer-events: none; visibility: hidden; } }
 
         /* --- FX: VISUALS --- */
         .stars {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: #000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
-            animation: move-stars 200s linear infinite; opacity: 0.6;
+            background: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px),
+                        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 3px),
+                        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 4px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            animation: move-stars 200s linear infinite; opacity: 0.4;
         }
-        @keyframes move-stars { from {background-position:0 0;} to {background-position:-10000px 5000px;} }
+        @keyframes move-stars { from {background-position: 0 0, 40px 60px, 130px 270px;} to {background-position: -10000px 5000px, -9960px 5060px, -9870px 5270px;} }
 
         .radar-grid {
             position: fixed; top: 55%; left: 50%; width: 200vw; height: 200vw;
@@ -151,6 +155,7 @@
             animation: radar-spin 60s linear infinite;
             z-index: -1; pointer-events: none;
             mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
         }
         @keyframes radar-spin {
             from { transform: translate(-50%, -50%) perspective(500px) rotateX(60deg) rotateZ(0deg); }
@@ -288,12 +293,12 @@
         .company { color: var(--text-main); font-weight: 600; margin-bottom: 10px; display: block; }
         .date { font-size: 0.8rem; color: var(--text-dim); font-family: 'JetBrains Mono'; }
         
-        .card ul { list-style: none; margin-top: 15px; }
-        .card li { 
+        .card ul, .bullet-list { list-style: none; margin-top: 15px; }
+        .card li, .bullet-list li { 
             position: relative; padding-left: 25px; margin-bottom: 10px; 
             font-size: 0.95rem; color: var(--text-dim); 
         }
-        .card li::before {
+        .card li::before, .bullet-list li::before {
             content: '⬢'; position: absolute; left: 0; top: 2px;
             color: var(--accent-primary); font-size: 0.8rem;
         }
@@ -336,7 +341,7 @@
         }
         .card:hover .project-img-container img { transform: scale(1.02); opacity: 1; }
 
-        /* --- PROJECT DOSSIER STYLES (For Research) --- */
+        /* --- PROJECT DOSSIER STYLES --- */
         .project-card {
             background: var(--bg-panel); border: var(--border-tech); margin-bottom: 60px;
             position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 0;
@@ -784,7 +789,7 @@
                     <h4 class="mono-font" style="color: var(--accent-primary); margin-bottom: 15px;">Key Research Finding</h4>
                     <p style="color: #fff; margin-bottom: 10px;">"The Saturation Point of Logistics"</p>
                     <div class="description">
-                        In high-fidelity simulations, the offensive momentum of an infantry platoon is directly constrained by the 'Logistical Tether'—the time delay between request and resupply. Analysis indicates that maintaining a continuous supply chain (reducing the resupply interval to < 3 minutes) creates a "Force Multiplier" effect.
+                        In high-fidelity simulations, the offensive momentum of an infantry platoon is directly constrained by the 'Logistical Tether'—the time delay between request and resupply. Analysis indicates that maintaining a continuous supply chain (reducing the resupply interval to &lt; 3 minutes) creates a "Force Multiplier" effect.
                     </div>
                     <ul>
                         <li>Observed 40% higher territory capture rate in squads with dedicated logistics drivers.</li>
@@ -887,28 +892,78 @@
     </footer>
 
     <script>
-        window.addEventListener('load', () => { setTimeout(() => { document.getElementById('boot-screen').style.animation = "fadeOutScreen 0.5s forwards"; }, 3500); });
-        
+        // Boot Screen Dismiss
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const bootScreen = document.getElementById('boot-screen');
+                if (bootScreen) {
+                    bootScreen.style.animation = "fadeOutScreen 0.5s forwards";
+                }
+            }, 3500);
+        });
+
+        // Tactical Cursor
         const cursorDot = document.getElementById("cursor-dot");
         const cursorRing = document.getElementById("cursor-ring");
         document.addEventListener("mousemove", (e) => {
-            cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
-            cursorRing.style.left = `${e.clientX}px`; cursorRing.style.top = `${e.clientY}px`;
+            if (cursorDot && cursorRing) {
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
+                cursorRing.style.left = `${e.clientX}px`;
+                cursorRing.style.top = `${e.clientY}px`;
+            }
         });
         document.querySelectorAll("a, button, .card, .btn").forEach(el => {
             el.addEventListener("mouseenter", () => document.body.classList.add("hovering"));
             el.addEventListener("mouseleave", () => document.body.classList.remove("hovering"));
         });
 
+        // Scroll Reveal Observer
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = "1"; entry.target.style.transform = "translateY(0)"; } });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
         }, { threshold: 0.1 });
         
         document.querySelectorAll('.card, .project-card').forEach(el => {
-            el.style.opacity = "0"; el.style.transform = "translateY(20px)"; el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+            el.style.opacity = "0";
+            el.style.transform = "translateY(20px)";
+            el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
             observer.observe(el);
         });
 
+        // Zulu Clock
         function updateTime() {
-            const now = new Date(); const timeString = now.toISOString().split('T')[1].split('.')[0];
-            const clockEl = document.getElementById('zulu-clock'); if(clockEl
+            const now = new Date();
+            const timeString = now.toISOString().split('T')[1].split('.')[0];
+            const clockEl = document.getElementById('zulu-clock');
+            if (clockEl) clockEl.textContent = `ZULU: ${timeString}Z`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Active Nav Link Highlight
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            const scrollPosition = window.scrollY + 300;
+            
+            sections.forEach(section => {
+                if (scrollPosition >= section.offsetTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current) && current !== '') {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
